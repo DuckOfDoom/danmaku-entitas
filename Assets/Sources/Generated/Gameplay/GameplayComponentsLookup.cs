@@ -9,17 +9,38 @@
 public static class GameplayComponentsLookup {
 
     public const int GameTime = 0;
-    public const int GameTimeSystem = 1;
+    public const int Log = 1;
+    public const int Player = 2;
+    public const int PlayerMovementDirection = 3;
+    public const int Position = 4;
+    public const int Sprite = 5;
+    public const int SpriteRenderer = 6;
+    public const int View = 7;
+    public const int GameTimeSystem = 8;
 
-    public const int TotalComponents = 2;
+    public const int TotalComponents = 9;
 
     public static readonly string[] componentNames = {
         "GameTime",
+        "Log",
+        "Player",
+        "PlayerMovementDirection",
+        "Position",
+        "Sprite",
+        "SpriteRenderer",
+        "View",
         "GameTimeSystem"
     };
 
     public static readonly System.Type[] componentTypes = {
         typeof(DuckOfDoom.Danmaku.GameTimeComponent),
+        typeof(DuckOfDoom.Danmaku.LogComponent),
+        typeof(DuckOfDoom.Danmaku.PlayerComponent),
+        typeof(DuckOfDoom.Danmaku.PlayerMovementDirectionComponent),
+        typeof(DuckOfDoom.Danmaku.PositionComponent),
+        typeof(DuckOfDoom.Danmaku.SpriteComponent),
+        typeof(DuckOfDoom.Danmaku.SpriteRendererComponent),
+        typeof(DuckOfDoom.Danmaku.ViewComponent),
         typeof(GameTimeSystemComponent)
     };
 }

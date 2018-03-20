@@ -1,15 +1,25 @@
 ﻿using Entitas;
+using UnityEngine;
 
 namespace DuckOfDoom.Danmaku
 {
     public class InitializeGameplaySystem : IInitializeSystem
     {
+        private readonly GameplayContext _context;
+
+        public InitializeGameplaySystem(GameplayContext context)
+        {
+            _context = context;
+        }
+
         public void Initialize()
         {
-            UnityEngine.Debug.LogError("This is initialize");
+            var playerEntity = _context.CreateEntity();
             
-//            new Systems().Add()
-            
+            playerEntity.isPlayer = true;
+            playerEntity.AddSprite("circle");
+            playerEntity.AddPlayerMovementDirection(new Vector2(0, 0));
+            playerEntity.AddPosition(0, 0);
         }
     }
 }

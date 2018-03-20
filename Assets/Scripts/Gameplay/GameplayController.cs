@@ -12,13 +12,20 @@ namespace DuckOfDoom.Danmaku
 		[UsedImplicitly] 
 		public void Awake()
 		{
+			var gameplayContext = Contexts.sharedInstance.gameplay;
+
 			_updateSystems = new Systems()
-				.Add(new InitializeGameplaySystem());
+				.Add(new InitializeGameplaySystem(gameplayContext))
+				.Add(new AddViewSystem(gameplayContext))
+				.Add(new InputSystem(gameplayContext))
+				.Add(new PlayerMovementSystem(gameplayContext))
+				.Add(new RenderPositionSystem(gameplayContext))
+				.Add(new RenderSpriteSystem(gameplayContext));
 			
 			_updateSystems.Initialize();
 		    
 		    _fixedUpdateSystems = new Systems()
-			    .Add(new GameTimeSystem(Contexts.sharedInstance.gameplay));
+			    .Add(new GameTimeSystem(gameplayContext));
 			
 			_fixedUpdateSystems.Initialize();
 		}
@@ -29,32 +36,19 @@ namespace DuckOfDoom.Danmaku
 			_updateSystems.Execute();
 			_updateSystems.Cleanup();
 		}
+
+	    [UsedImplicitly]
+	    public void FixedUpdate()
+	    {
+		    _fixedUpdateSystems.Execute();
+		    _fixedUpdateSystems.Cleanup();
+	    }
 	    
         [UsedImplicitly]
 	    private void OnDestroy()
 	    {
 			_updateSystems.TearDown();
+		    _fixedUpdateSystems.TearDown();
 	    }
     }
-
-	[Gameplay]
-	public class GameTimeSystem : IInitializeSystem, IExecuteSystem
-	{
-		private readonly GameplayContext _context;
-
-		public GameTimeSystem(GameplayContext context)
-		{
-			_context = context;
-		}
-
-		public void Initialize()
-		{
-			_context.CreateEntity().AddGameTime(0);
-		}
-
-		public void Execute()
-		{
-			_context.gameTime.Tick++;
-		}
-	}
 }
