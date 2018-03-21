@@ -19,7 +19,6 @@ namespace DuckOfDoom.Danmaku
     [Gameplay]
     public class PositionComponent : IComponent
     {
-        public float X { get; set; }
-        public float Y { get; set; }
+        public Vector2 Value { get; set; }
     }
 }

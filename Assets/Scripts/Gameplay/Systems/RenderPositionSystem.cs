@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Entitas;
-using UnityEngine;
 
 namespace DuckOfDoom.Danmaku
 {
@@ -20,9 +19,6 @@ namespace DuckOfDoom.Danmaku
 
         protected override bool Filter(GameplayEntity entity) { return true; }
 
-        protected override void Execute(List<GameplayEntity> entities)
-        {
-            entities.ForEach(e => e.view.GameObject.transform.position = new Vector2(e.position.X, e.position.Y));
-        }
+        protected override void Execute(List<GameplayEntity> entities) { entities.ForEach(e => e.view.GameObject.transform.position = e.position.Value); }
     }
 }

@@ -11,19 +11,17 @@ public partial class GameplayEntity {
     public DuckOfDoom.Danmaku.PositionComponent position { get { return (DuckOfDoom.Danmaku.PositionComponent)GetComponent(GameplayComponentsLookup.Position); } }
     public bool hasPosition { get { return HasComponent(GameplayComponentsLookup.Position); } }
 
-    public void AddPosition(float newX, float newY) {
+    public void AddPosition(UnityEngine.Vector2 newValue) {
         var index = GameplayComponentsLookup.Position;
         var component = CreateComponent<DuckOfDoom.Danmaku.PositionComponent>(index);
-        component.X = newX;
-        component.Y = newY;
+        component.Value = newValue;
         AddComponent(index, component);
     }
 
-    public void ReplacePosition(float newX, float newY) {
+    public void ReplacePosition(UnityEngine.Vector2 newValue) {
         var index = GameplayComponentsLookup.Position;
         var component = CreateComponent<DuckOfDoom.Danmaku.PositionComponent>(index);
-        component.X = newX;
-        component.Y = newY;
+        component.Value = newValue;
         ReplaceComponent(index, component);
     }
 

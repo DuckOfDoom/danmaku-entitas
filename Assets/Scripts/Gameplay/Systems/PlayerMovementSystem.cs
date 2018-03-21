@@ -34,8 +34,9 @@ namespace DuckOfDoom.Danmaku
  
                 // Add speed and configuration?
                 e.ReplacePosition(
-                    e.position.X += direction.x * Time.deltaTime,
-                    e.position.Y += direction.y * Time.deltaTime
+                    e.position.Value += direction * Time.deltaTime
+//                    e.position.X += direction.x * Time.deltaTime,
+//                    e.position.Y += direction.y * Time.deltaTime,
                 );
             });
         }

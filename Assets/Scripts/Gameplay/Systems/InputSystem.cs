@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 namespace DuckOfDoom.Danmaku
 {
@@ -20,15 +21,15 @@ namespace DuckOfDoom.Danmaku
             var player = _playerGroup.GetSingleEntity();
             
             var dir = Vector2.zero;
-            if (Input.GetAxis("Vertical") > 0)
+            if (Input.GetKey(KeyCode.W))
                 dir += Vector2.up;
-            else if (Input.GetAxis("Vertical") < 0)
-                dir -= Vector2.up;
-            
-            if (Input.GetAxis("Horizontal") > 0)
-                dir -= Vector2.left;
-            else if (Input.GetAxis("Horizontal") < 0)
+            else if (Input.GetKey(KeyCode.S))
+                dir += Vector2.down;
+
+            if (Input.GetKey(KeyCode.A))
                 dir += Vector2.left;
+            else if (Input.GetKey(KeyCode.D))
+                dir += Vector2.right;
             
             player.ReplacePlayerMovementDirection(dir);
         }
