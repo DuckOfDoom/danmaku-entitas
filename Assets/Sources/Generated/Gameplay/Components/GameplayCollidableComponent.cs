@@ -14,14 +14,14 @@ public partial class GameplayEntity {
     public void AddCollidable(float newCollisionRadius) {
         var index = GameplayComponentsLookup.Collidable;
         var component = CreateComponent<DuckOfDoom.Danmaku.CollidableComponent>(index);
-        component.collisionRadius = newCollisionRadius;
+        component.CollisionRadius = newCollisionRadius;
         AddComponent(index, component);
     }
 
     public void ReplaceCollidable(float newCollisionRadius) {
         var index = GameplayComponentsLookup.Collidable;
         var component = CreateComponent<DuckOfDoom.Danmaku.CollidableComponent>(index);
-        component.collisionRadius = newCollisionRadius;
+        component.CollisionRadius = newCollisionRadius;
         ReplaceComponent(index, component);
     }
 

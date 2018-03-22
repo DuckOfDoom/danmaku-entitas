@@ -9,26 +9,30 @@
 public static class GameplayComponentsLookup {
 
     public const int Collidable = 0;
-    public const int EnemyProjectile = 1;
-    public const int GameTime = 2;
-    public const int Health = 3;
-    public const int Log = 4;
-    public const int Player = 5;
-    public const int PlayerMovementDirection = 6;
-    public const int Position = 7;
-    public const int Sprite = 8;
-    public const int SpriteRenderer = 9;
-    public const int View = 10;
-    public const int GameTimeSystem = 11;
+    public const int Damage = 1;
+    public const int EnemyProjectile = 2;
+    public const int GameTime = 3;
+    public const int Health = 4;
+    public const int Log = 5;
+    public const int PlayerCollision = 6;
+    public const int Player = 7;
+    public const int PlayerMovementDirection = 8;
+    public const int Position = 9;
+    public const int Sprite = 10;
+    public const int SpriteRenderer = 11;
+    public const int View = 12;
+    public const int GameTimeSystem = 13;
 
-    public const int TotalComponents = 12;
+    public const int TotalComponents = 14;
 
     public static readonly string[] componentNames = {
         "Collidable",
+        "Damage",
         "EnemyProjectile",
         "GameTime",
         "Health",
         "Log",
+        "PlayerCollision",
         "Player",
         "PlayerMovementDirection",
         "Position",
@@ -40,10 +44,12 @@ public static class GameplayComponentsLookup {
 
     public static readonly System.Type[] componentTypes = {
         typeof(DuckOfDoom.Danmaku.CollidableComponent),
+        typeof(DuckOfDoom.Danmaku.DamageComponent),
         typeof(DuckOfDoom.Danmaku.EnemyProjectileComponent),
         typeof(DuckOfDoom.Danmaku.GameTimeComponent),
         typeof(DuckOfDoom.Danmaku.HealthComponent),
         typeof(DuckOfDoom.Danmaku.LogComponent),
+        typeof(DuckOfDoom.Danmaku.PlayerCollision),
         typeof(DuckOfDoom.Danmaku.PlayerComponent),
         typeof(DuckOfDoom.Danmaku.PlayerMovementDirectionComponent),
         typeof(DuckOfDoom.Danmaku.PositionComponent),

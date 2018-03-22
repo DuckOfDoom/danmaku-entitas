@@ -20,13 +20,15 @@ namespace DuckOfDoom.Danmaku
 				.Add(new InputSystem(gameplayContext))
 				.Add(new PlayerMovementSystem(gameplayContext))
 				.Add(new RenderPositionSystem(gameplayContext))
+				.Add(new CollisionProcessingSystem(gameplayContext))
+				.Add(new InflictDamageSystem(gameplayContext))
 				.Add(new RenderSpriteSystem(gameplayContext));
 			
 			_updateSystems.Initialize();
 
 			_fixedUpdateSystems = new Systems()
 				.Add(new GameTimeSystem(gameplayContext))
-				.Add(new PlayerCollisionSystem(gameplayContext));
+				.Add(new CollisionDetectionSystem(gameplayContext));
 			
 			_fixedUpdateSystems.Initialize();
 

@@ -29,7 +29,7 @@ namespace DuckOfDoom.Danmaku
 	        for (var i = 0; i < entities.Length; i++)
 	        {
 		        var e = entities[i];
-                DrawCircle(e.position.Value, e.collidable.collisionRadius, Color.green);
+                DrawCircle(e.position.Value, e.collidable.CollisionRadius, Color.green);
 	        }
         }
 

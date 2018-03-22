@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameplayEntity {
 
-    static readonly DuckOfDoom.Danmaku.HealthComponent healthComponent = new DuckOfDoom.Danmaku.HealthComponent();
+    public DuckOfDoom.Danmaku.HealthComponent health { get { return (DuckOfDoom.Danmaku.HealthComponent)GetComponent(GameplayComponentsLookup.Health); } }
+    public bool hasHealth { get { return HasComponent(GameplayComponentsLookup.Health); } }
 
-    public bool isHealth {
-        get { return HasComponent(GameplayComponentsLookup.Health); }
-        set {
-            if (value != isHealth) {
-                var index = GameplayComponentsLookup.Health;
-                if (value) {
-                    var componentPool = GetComponentPool(index);
-                    var component = componentPool.Count > 0
-                            ? componentPool.Pop()
-                            : healthComponent;
+    public void AddHealth(float newValue) {
+        var index = GameplayComponentsLookup.Health;
+        var component = CreateComponent<DuckOfDoom.Danmaku.HealthComponent>(index);
+        component.Value = newValue;
+        AddComponent(index, component);
+    }
 
-                    AddComponent(index, component);
-                } else {
-                    RemoveComponent(index);
-                }
-            }
-        }
+    public void ReplaceHealth(float newValue) {
+        var index = GameplayComponentsLookup.Health;
+        var component = CreateComponent<DuckOfDoom.Danmaku.HealthComponent>(index);
+        component.Value = newValue;
+        ReplaceComponent(index, component);
+    }
+
+    public void RemoveHealth() {
+        RemoveComponent(GameplayComponentsLookup.Health);
     }
 }
 
