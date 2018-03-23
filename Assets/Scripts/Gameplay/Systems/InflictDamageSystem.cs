@@ -32,7 +32,7 @@ namespace DuckOfDoom.Danmaku
         {
             entities.ForEach(e =>
             {
-                e.health.Value -= e.damage.Amount;
+                e.ReplaceHealth(e.health.Value -= e.damage.Amount);
                 e.RemoveDamage();
             });
         }

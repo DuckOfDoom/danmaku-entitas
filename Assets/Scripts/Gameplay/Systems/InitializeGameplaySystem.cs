@@ -18,13 +18,13 @@ namespace DuckOfDoom.Danmaku
             
             playerEntity.isPlayer = true;
             playerEntity.AddSprite("circle");
-            playerEntity.AddHealth(99999);
+            playerEntity.AddHealth(150);
             playerEntity.AddPlayerMovementDirection(new Vector2(0, 0));
             playerEntity.AddCollidable(1f);
             playerEntity.AddPosition(new Vector2(0, 0));
 
             var projectileEntity = _context.CreateEntity();
-            projectileEntity.isEnemyProjectile = true;
+            projectileEntity.AddEnemyProjectile(1.5f); 
             projectileEntity.AddSprite("circle");
             projectileEntity.AddCollidable(1f);
             projectileEntity.AddPosition(new Vector2(0, 3));

@@ -6,16 +6,16 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-public sealed partial class DebugContext : Entitas.Context<DebugEntity> {
+public sealed partial class UIContext : Entitas.Context<UIEntity> {
 
-    public DebugContext()
+    public UIContext()
         : base(
-            DebugComponentsLookup.TotalComponents,
+            UIComponentsLookup.TotalComponents,
             0,
             new Entitas.ContextInfo(
-                "Debug",
-                DebugComponentsLookup.componentNames,
-                DebugComponentsLookup.componentTypes
+                "UI",
+                UIComponentsLookup.componentNames,
+                UIComponentsLookup.componentTypes
             ),
             (entity) =>
 

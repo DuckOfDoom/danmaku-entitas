@@ -4,8 +4,8 @@ namespace DuckOfDoom.Danmaku
 {
     public class CollisionProcessingSystem : ITearDownSystem
     {
-        private IGroup<GameplayEntity> _group;
-        private IGroup<GameplayEntity> _playerGroup;
+        private readonly IGroup<GameplayEntity> _group;
+        private readonly IGroup<GameplayEntity> _playerGroup;
             
         public CollisionProcessingSystem(IContext<GameplayEntity> context) 
         {
@@ -22,22 +22,24 @@ namespace DuckOfDoom.Danmaku
 
         private void ProcessCollision(PlayerCollision playerCollision)
         {
-            AddDamage(_playerGroup.GetSingleEntity());
-            playerCollision.CollidedWith.Destroy();
+            if (playerCollision.CollidedWith.hasEnemyProjectile)
+            {
+                AddDamage(_playerGroup.GetSingleEntity(), playerCollision.CollidedWith.enemyProjectile.Damage);
+                playerCollision.CollidedWith.Destroy();
+            }
         }
 
-        private void AddDamage(GameplayEntity entity)
+        private static void AddDamage(GameplayEntity entity, float amount)
         {
             if (entity.hasDamage)
-                entity.damage.Amount++;
+                entity.damage.Amount += amount;
             else
-                entity.AddDamage(1);
+                entity.AddDamage(amount);
         }
 
         public void TearDown()
         {
             _group.OnEntityAdded -= OnPlayerCollision;
-            _group = null;
         }
     }
 }

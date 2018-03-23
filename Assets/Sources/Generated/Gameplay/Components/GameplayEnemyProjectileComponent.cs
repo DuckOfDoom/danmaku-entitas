@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameplayEntity {
 
-    static readonly DuckOfDoom.Danmaku.EnemyProjectileComponent enemyProjectileComponent = new DuckOfDoom.Danmaku.EnemyProjectileComponent();
+    public DuckOfDoom.Danmaku.EnemyProjectileComponent enemyProjectile { get { return (DuckOfDoom.Danmaku.EnemyProjectileComponent)GetComponent(GameplayComponentsLookup.EnemyProjectile); } }
+    public bool hasEnemyProjectile { get { return HasComponent(GameplayComponentsLookup.EnemyProjectile); } }
 
-    public bool isEnemyProjectile {
-        get { return HasComponent(GameplayComponentsLookup.EnemyProjectile); }
-        set {
-            if (value != isEnemyProjectile) {
-                var index = GameplayComponentsLookup.EnemyProjectile;
-                if (value) {
-                    var componentPool = GetComponentPool(index);
-                    var component = componentPool.Count > 0
-                            ? componentPool.Pop()
-                            : enemyProjectileComponent;
+    public void AddEnemyProjectile(float newDamage) {
+        var index = GameplayComponentsLookup.EnemyProjectile;
+        var component = CreateComponent<DuckOfDoom.Danmaku.EnemyProjectileComponent>(index);
+        component.Damage = newDamage;
+        AddComponent(index, component);
+    }
 
-                    AddComponent(index, component);
-                } else {
-                    RemoveComponent(index);
-                }
-            }
-        }
+    public void ReplaceEnemyProjectile(float newDamage) {
+        var index = GameplayComponentsLookup.EnemyProjectile;
+        var component = CreateComponent<DuckOfDoom.Danmaku.EnemyProjectileComponent>(index);
+        component.Damage = newDamage;
+        ReplaceComponent(index, component);
+    }
+
+    public void RemoveEnemyProjectile() {
+        RemoveComponent(GameplayComponentsLookup.EnemyProjectile);
     }
 }
 

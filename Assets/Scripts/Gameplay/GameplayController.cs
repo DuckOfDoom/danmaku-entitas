@@ -1,20 +1,12 @@
-﻿using Entitas;
-using JetBrains.Annotations;
-using UnityEngine;
-
-namespace DuckOfDoom.Danmaku
+﻿namespace DuckOfDoom.Danmaku
 {
-    public class GameplayController : MonoBehaviour
+    public class GameplayController : CommonController
     {
-	    private Systems _updateSystems;
-	    private Systems _fixedUpdateSystems;
-		    
-		[UsedImplicitly] 
-		public void Awake()
-		{
+	    protected override void SetUp()
+	    {
 			var gameplayContext = Contexts.sharedInstance.gameplay;
 
-			_updateSystems = new Systems()
+			_updateSystems 
 				.Add(new InitializeGameplaySystem(gameplayContext))
 				.Add(new AddViewSystem(gameplayContext))
 				.Add(new InputSystem(gameplayContext))
@@ -24,35 +16,9 @@ namespace DuckOfDoom.Danmaku
 				.Add(new InflictDamageSystem(gameplayContext))
 				.Add(new RenderSpriteSystem(gameplayContext));
 			
-			_updateSystems.Initialize();
-
-			_fixedUpdateSystems = new Systems()
+			_fixedUpdateSystems 
 				.Add(new GameTimeSystem(gameplayContext))
 				.Add(new CollisionDetectionSystem(gameplayContext));
-			
-			_fixedUpdateSystems.Initialize();
-
-		}
-	    
-		[UsedImplicitly] 
-		public void Update()
-		{
-			_updateSystems.Execute();
-			_updateSystems.Cleanup();
-		}
-
-	    [UsedImplicitly]
-	    public void FixedUpdate()
-	    {
-		    _fixedUpdateSystems.Execute();
-		    _fixedUpdateSystems.Cleanup();
-	    }
-	    
-        [UsedImplicitly]
-	    private void OnDestroy()
-	    {
-			_updateSystems.TearDown();
-		    _fixedUpdateSystems.TearDown();
 	    }
     }
 }

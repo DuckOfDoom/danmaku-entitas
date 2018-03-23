@@ -7,7 +7,8 @@ namespace DuckOfDoom.Danmaku
     {
         public void Initialize()
         {
-            SceneManager.LoadScene("Gameplay");
+            SceneManager.LoadScene("Gameplay", LoadSceneMode.Additive);
+            SceneManager.LoadScene("UI", LoadSceneMode.Additive);
         }
     }
 }
