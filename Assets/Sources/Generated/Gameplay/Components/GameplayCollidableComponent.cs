@@ -8,19 +8,19 @@
 //------------------------------------------------------------------------------
 public partial class GameplayEntity {
 
-    public DuckOfDoom.Danmaku.CollidableComponent collidable { get { return (DuckOfDoom.Danmaku.CollidableComponent)GetComponent(GameplayComponentsLookup.Collidable); } }
+    public DuckOfDoom.Danmaku.Collidable collidable { get { return (DuckOfDoom.Danmaku.Collidable)GetComponent(GameplayComponentsLookup.Collidable); } }
     public bool hasCollidable { get { return HasComponent(GameplayComponentsLookup.Collidable); } }
 
     public void AddCollidable(float newCollisionRadius) {
         var index = GameplayComponentsLookup.Collidable;
-        var component = CreateComponent<DuckOfDoom.Danmaku.CollidableComponent>(index);
+        var component = CreateComponent<DuckOfDoom.Danmaku.Collidable>(index);
         component.CollisionRadius = newCollisionRadius;
         AddComponent(index, component);
     }
 
     public void ReplaceCollidable(float newCollisionRadius) {
         var index = GameplayComponentsLookup.Collidable;
-        var component = CreateComponent<DuckOfDoom.Danmaku.CollidableComponent>(index);
+        var component = CreateComponent<DuckOfDoom.Danmaku.Collidable>(index);
         component.CollisionRadius = newCollisionRadius;
         ReplaceComponent(index, component);
     }

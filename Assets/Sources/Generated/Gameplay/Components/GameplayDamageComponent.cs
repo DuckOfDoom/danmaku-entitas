@@ -8,19 +8,19 @@
 //------------------------------------------------------------------------------
 public partial class GameplayEntity {
 
-    public DuckOfDoom.Danmaku.DamageComponent damage { get { return (DuckOfDoom.Danmaku.DamageComponent)GetComponent(GameplayComponentsLookup.Damage); } }
+    public DuckOfDoom.Danmaku.Damage damage { get { return (DuckOfDoom.Danmaku.Damage)GetComponent(GameplayComponentsLookup.Damage); } }
     public bool hasDamage { get { return HasComponent(GameplayComponentsLookup.Damage); } }
 
     public void AddDamage(float newAmount) {
         var index = GameplayComponentsLookup.Damage;
-        var component = CreateComponent<DuckOfDoom.Danmaku.DamageComponent>(index);
+        var component = CreateComponent<DuckOfDoom.Danmaku.Damage>(index);
         component.Amount = newAmount;
         AddComponent(index, component);
     }
 
     public void ReplaceDamage(float newAmount) {
         var index = GameplayComponentsLookup.Damage;
-        var component = CreateComponent<DuckOfDoom.Danmaku.DamageComponent>(index);
+        var component = CreateComponent<DuckOfDoom.Danmaku.Damage>(index);
         component.Amount = newAmount;
         ReplaceComponent(index, component);
     }

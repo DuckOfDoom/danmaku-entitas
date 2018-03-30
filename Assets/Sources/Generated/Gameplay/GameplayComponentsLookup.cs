@@ -10,51 +10,57 @@ public static class GameplayComponentsLookup {
 
     public const int Collidable = 0;
     public const int Damage = 1;
-    public const int EnemyProjectile = 2;
-    public const int GameTime = 3;
-    public const int Health = 4;
-    public const int Log = 5;
+    public const int DamageDealer = 2;
+    public const int Enemy = 3;
+    public const int GameTime = 4;
+    public const int Health = 5;
     public const int PlayerCollision = 6;
     public const int Player = 7;
     public const int PlayerMovementDirection = 8;
     public const int Position = 9;
-    public const int Sprite = 10;
-    public const int SpriteRenderer = 11;
-    public const int View = 12;
-    public const int GameTimeSystem = 13;
+    public const int Rotation = 10;
+    public const int Sprite = 11;
+    public const int SpriteRenderer = 12;
+    public const int Velocity = 13;
+    public const int View = 14;
+    public const int GameTimeSystem = 15;
 
-    public const int TotalComponents = 14;
+    public const int TotalComponents = 16;
 
     public static readonly string[] componentNames = {
         "Collidable",
         "Damage",
-        "EnemyProjectile",
+        "DamageDealer",
+        "Enemy",
         "GameTime",
         "Health",
-        "Log",
         "PlayerCollision",
         "Player",
         "PlayerMovementDirection",
         "Position",
+        "Rotation",
         "Sprite",
         "SpriteRenderer",
+        "Velocity",
         "View",
         "GameTimeSystem"
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(DuckOfDoom.Danmaku.CollidableComponent),
-        typeof(DuckOfDoom.Danmaku.DamageComponent),
-        typeof(DuckOfDoom.Danmaku.EnemyProjectileComponent),
+        typeof(DuckOfDoom.Danmaku.Collidable),
+        typeof(DuckOfDoom.Danmaku.Damage),
+        typeof(DuckOfDoom.Danmaku.DamageDealer),
+        typeof(DuckOfDoom.Danmaku.Enemy),
         typeof(DuckOfDoom.Danmaku.GameTimeComponent),
-        typeof(DuckOfDoom.Danmaku.HealthComponent),
-        typeof(DuckOfDoom.Danmaku.LogComponent),
+        typeof(DuckOfDoom.Danmaku.Health),
         typeof(DuckOfDoom.Danmaku.PlayerCollision),
         typeof(DuckOfDoom.Danmaku.PlayerComponent),
         typeof(DuckOfDoom.Danmaku.PlayerMovementDirectionComponent),
         typeof(DuckOfDoom.Danmaku.PositionComponent),
+        typeof(DuckOfDoom.Danmaku.RotationComponent),
         typeof(DuckOfDoom.Danmaku.SpriteComponent),
         typeof(DuckOfDoom.Danmaku.SpriteRendererComponent),
+        typeof(DuckOfDoom.Danmaku.VelocityComponent),
         typeof(DuckOfDoom.Danmaku.ViewComponent),
         typeof(GameTimeSystemComponent)
     };
