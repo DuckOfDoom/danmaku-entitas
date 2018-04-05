@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DuckOfDoom.Danmaku
 {
@@ -9,7 +10,8 @@ namespace DuckOfDoom.Danmaku
 	{
 		public void Awake()
 		{
-			new StartupSystem().Initialize();
+            SceneManager.LoadScene("Gameplay", LoadSceneMode.Additive);
+            SceneManager.LoadScene("UI", LoadSceneMode.Additive);
 		}
 	}
 }

@@ -1,80 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using Entitas;
-using Entitas.VisualDebugging.Unity;
-using Zenject;
+﻿using DuckOfDoom.Danmaku.Utility;
+using UnityEngine;
 
 namespace DuckOfDoom.Danmaku
 {
-    public class GameplayInstaller : MonoInstaller
+    public class GameplayInstaller : EcsInstaller
     {
-	    private const string UPDATE_BINDINGS_ID = "gameplay_update_bindings";
-	    private const string FIXED_UPDATE_BINDINGS_ID = "gameplay_fixed_update_bindings";
+	    [SerializeField] private Camera _mainCamera;
 	    
 	    public override void InstallBindings()
 	    {
 		    Container.Bind<GameplayContext>().FromInstance(Contexts.sharedInstance.gameplay).AsSingle();
 		    
 		    // Update systems
-		    Container.Bind<ISystem>().WithId(UPDATE_BINDINGS_ID).To<InitializePlayerSystem>().AsSingle();
-		    Container.Bind<ISystem>().WithId(UPDATE_BINDINGS_ID).To<AddViewSystem>().AsSingle();
-		    Container.Bind<ISystem>().WithId(UPDATE_BINDINGS_ID).To<InputSystem>().AsSingle();
-		    Container.Bind<ISystem>().WithId(UPDATE_BINDINGS_ID).To<PlayerMovementSystem>().AsSingle();
-		    Container.Bind<ISystem>().WithId(UPDATE_BINDINGS_ID).To<ApplyVelocitySystem>().AsSingle();
-		    Container.Bind<ISystem>().WithId(UPDATE_BINDINGS_ID).To<RenderTransformSystem>().AsSingle();
-		    Container.Bind<ISystem>().WithId(UPDATE_BINDINGS_ID).To<RenderSpriteSystem>().AsSingle();
-		    Container.Bind<ISystem>().WithId(UPDATE_BINDINGS_ID).To<CollisionProcessingSystem>().AsSingle();
-		    Container.Bind<ISystem>().WithId(UPDATE_BINDINGS_ID).To<InflictDamageSystem>().AsSingle();
+		    InstallCommonSystem<InitializePlayerSystem>();
+		    InstallCommonSystem<CollisionProcessingSystem>();
+		    
+		    InstallUpdateSystem<AddViewSystem>();
+		    InstallUpdateSystem<InputSystem>();
+		    InstallUpdateSystem<PlayerMovementSystem>();
+		    InstallUpdateSystem<ApplyVelocitySystem>();
+		    InstallUpdateSystem<RenderTransformSystem>();
+		    InstallUpdateSystem<RenderSpriteSystem>();
+		    InstallUpdateSystem<InflictDamageSystem>();
 
 		    // Update systems
-		    Container.Bind<ISystem>().WithId(FIXED_UPDATE_BINDINGS_ID).To<GameTimeSystem>().AsSingle();
-		    Container.Bind<ISystem>().WithId(FIXED_UPDATE_BINDINGS_ID).To<CollisionDetectionSystem>().AsSingle();
+		    InstallFixedUpdateSystem<GameTimeSystem>();
+		    InstallFixedUpdateSystem<CollisionDetectionSystem>();
 
-		    Container.BindInterfacesAndSelfTo<GameplayUpdateSystems>()
-			    .FromMethod(context => new GameplayUpdateSystems(context.Container.ResolveIdAll<ISystem>(UPDATE_BINDINGS_ID)))
-			    .AsSingle();
+		    Container.Bind<VisualizeCollidersSystem>().AsSingle();
+		    Container.Bind<VisualizationController>()
+			    .FromNewComponentOn(context => _mainCamera.gameObject)
+			    .AsSingle()
+			    .NonLazy();
 		    
-		    Container.BindInterfacesAndSelfTo<GameplayFixedUpdateSystems>()
-			    .FromMethod(context => new GameplayFixedUpdateSystems(context.Container.ResolveIdAll<ISystem>(FIXED_UPDATE_BINDINGS_ID)))
-			    .AsSingle();
-	    }
-	    
-	    private sealed class GameplayUpdateSystems : DebugSystems, IInitializable, ITickable, IDisposable
-	    {
-		    public GameplayUpdateSystems(IEnumerable<ISystem> systems) : base("GameplayUpdate")
-		    {
-			    foreach (var s in systems) { Add(s); }
-		    }
-		    
-		    public void Tick() { this.Execute(); this.Cleanup(); }
-		    public void Dispose() { this.TearDown(); }
-	    }
-	    
-	    private sealed class GameplayFixedUpdateSystems : DebugSystems, IInitializable, IFixedTickable, IDisposable
-	    {
-		    public GameplayFixedUpdateSystems(IEnumerable<ISystem> systems) : base("GameplayFixedUpdate")
-		    {
-			    foreach (var s in systems)
-			    {
-				    Add(s);
-			    }
-		    }
-		    
-		    public void FixedTick() { this.Execute(); this.Cleanup(); }
-		    public void Dispose() { this.TearDown(); }
+		    base.InstallBindings();
 	    }
     }
-
-	public class EcsInstaller : MonoInstaller
-	{
-		private void InstallUpdateSystem<T>() where T : ISystem, IExecuteSystem
-		{
-			
-		}
-		
-		private void InstallFixedUpdateSystem<T>()
-		{
-			
-		}
-	}
 }

@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Entitas;
+using Zenject;
 
-namespace DuckOfDoom.Danmaku.UI.Systems
+namespace DuckOfDoom.Danmaku.UI
 {
+   public delegate void SetPlayerHealth(float health);
+    
    public class PlayerStatsUISystem : ReactiveSystem<GameplayEntity>
    {
-       private readonly Action<float> _setPlayerHealth;
-       private readonly IContext<GameplayEntity> _context;
-
-       public PlayerStatsUISystem(
-           GameplayContext context,
-           Action<float> setPlayerHealth
-           ) : base(context)
-       {
-           _context = context;
-           _setPlayerHealth = setPlayerHealth;
-       }
-
+       [Inject]
+       private SetPlayerHealth SetPlayerHealth { get; set; }
+      
+       public PlayerStatsUISystem(GameplayContext context) : base(context) { } 
+       
        protected override ICollector<GameplayEntity> GetTrigger(IContext<GameplayEntity> context)
        {
            return context.CreateCollector(GameplayMatcher.Health);
@@ -33,8 +28,8 @@ namespace DuckOfDoom.Danmaku.UI.Systems
            var player = entities.SingleEntity();
            var health = player.health;
            var value = health.Value;
-           _setPlayerHealth(value);
+           
+           SetPlayerHealth(value);
        }
-
    }
 }

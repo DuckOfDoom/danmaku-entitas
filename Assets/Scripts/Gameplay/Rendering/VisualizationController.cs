@@ -1,29 +1,27 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
+using Zenject;
 
 namespace DuckOfDoom.Danmaku.Utility
 {
+	/// <summary>
+	/// 	Controller for camera to visualize colliders via Visualize colliders system.
+	/// </summary>
     public class VisualizationController : MonoBehaviour
     {
-        private VisualizeCollidersSystem _visualizeCollidersSystem;
+	    [Inject]
+	    private VisualizeCollidersSystem VisualizeSystem { get; set; }
 	    
-	    [UsedImplicitly]
-        public void Awake()
-        {
-			var gameplayContext = Contexts.sharedInstance.gameplay;
-			_visualizeCollidersSystem = new VisualizeCollidersSystem(gameplayContext);
-        }
-        
 	    [UsedImplicitly]
 	    public void OnPostRender()
 	    {
-		    _visualizeCollidersSystem.Execute();
+		    VisualizeSystem.Execute();
 	    }
 
 	    [UsedImplicitly]
 	    public void OnDestroy()
 	    {
-		    _visualizeCollidersSystem.TearDown();
+		    VisualizeSystem.TearDown();
 	    }
     }
 }
