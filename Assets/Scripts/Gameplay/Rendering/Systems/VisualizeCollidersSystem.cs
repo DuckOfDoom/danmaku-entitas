@@ -36,7 +36,7 @@ namespace DuckOfDoom.Danmaku
                 DrawCircle(e.position.Value, e.collidable.CollisionRadius, Color.green);
 	        }
 	        
-	        DrawBounds(CommonConfig.PlayerMovementBounds, Color.yellow);
+	        DrawBounds(CommonConfig.GameplayArea, Color.yellow);
 	        DrawBounds(CommonConfig.ProjectileDestructionBounds, Color.red);
         }
 

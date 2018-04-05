@@ -35,8 +35,8 @@ namespace DuckOfDoom.Danmaku
                 var direction = e.playerMovementDirection.Direction;
                 var newPosition = e.position.Value + direction * CommonConfig.PlayerSpeedMultiplier * Time.deltaTime;
                 
-                if (!CommonConfig.PlayerMovementBounds.Contains(newPosition))
-                    newPosition = CommonConfig.PlayerMovementBounds.ClosestPoint(newPosition);
+                if (!CommonConfig.GameplayArea.Contains(newPosition))
+                    newPosition = CommonConfig.GameplayArea.ClosestPoint(newPosition);
                 
                 e.ReplacePosition(newPosition);
             });

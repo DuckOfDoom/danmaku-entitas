@@ -6,19 +6,18 @@ namespace DuckOfDoom.Danmaku.Configuration
     public class CommonGameplayConfig : ScriptableObject, ICommonGameplayConfig
     {
         [SerializeField] private float _playerSpeedMultiplier = 1;
-        [SerializeField] private Bounds _playerMovementBounds;
+        [SerializeField] private Bounds _gameplayArea;
         [Space(10f)]
         [SerializeField] private Bounds _projectileDestructionBounds;
 
-        public Bounds PlayerMovementBounds { get { return _playerMovementBounds; } }
         public float PlayerSpeedMultiplier { get { return _playerSpeedMultiplier; } }
-        
+        public Bounds GameplayArea { get { return _gameplayArea; } }
         public Bounds ProjectileDestructionBounds { get { return _projectileDestructionBounds; } }
     }
 
     public interface ICommonGameplayConfig
     {
-        Bounds PlayerMovementBounds { get; }
+        Bounds GameplayArea { get; }
         float PlayerSpeedMultiplier { get; }
         
         Bounds ProjectileDestructionBounds { get; }

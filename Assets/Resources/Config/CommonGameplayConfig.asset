@@ -11,8 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478f79149f954ebe943ad905a144ead5, type: 3}
   m_Name: CommonGameplayConfig
   m_EditorClassIdentifier: 
-  _playerMovementBounds:
-    m_Center: {x: -0, y: 0, z: 0}
+  _playerSpeedMultiplier: 5
+  _gameplayArea:
+    m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 5, y: 5, z: 0}
   _projectileDestructionBounds:
     m_Center: {x: 0, y: 0, z: 0}
