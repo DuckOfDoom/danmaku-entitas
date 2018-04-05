@@ -6,7 +6,7 @@ namespace DuckOfDoom.Danmaku
 {
     public class RenderSpriteSystem : ReactiveSystem<GameplayEntity>
     {
-        public RenderSpriteSystem(IContext<GameplayEntity> context) : base(context)
+        public RenderSpriteSystem(GameplayContext context) : base(context)
         {
         }
 

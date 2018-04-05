@@ -6,7 +6,7 @@ namespace DuckOfDoom.Danmaku
 {
     public class RenderTransformSystem : ReactiveSystem<GameplayEntity>
     {
-        public RenderTransformSystem(IContext<GameplayEntity> context) : base(context) { } 
+        public RenderTransformSystem(GameplayContext context) : base(context) { } 
         
         protected override ICollector<GameplayEntity> GetTrigger(IContext<GameplayEntity> context)
         {

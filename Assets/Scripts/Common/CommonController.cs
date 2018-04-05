@@ -1,10 +1,10 @@
 ﻿using Entitas;
 using Entitas.VisualDebugging.Unity;
-using UnityEngine;
+using Zenject;
 
 namespace DuckOfDoom.Danmaku
 {
-    public abstract class CommonController : MonoBehaviour
+    public abstract class CommonController : MonoInstaller
     {
         protected Systems _updateSystems;
         protected Systems _fixedUpdateSystems;

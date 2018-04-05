@@ -11,7 +11,7 @@ namespace DuckOfDoom.Danmaku
         private const int CircleResolution = 100;
         private const float CircleAngleDelta = (float)(2 * Math.PI / CircleResolution);
 	    
-	    public VisualizeCollidersSystem(IContext<GameplayEntity> context)
+	    public VisualizeCollidersSystem(GameplayContext context)
 	    {
 		    _visualizationGroup = context.GetGroup(
 			    GameplayMatcher.AllOf(

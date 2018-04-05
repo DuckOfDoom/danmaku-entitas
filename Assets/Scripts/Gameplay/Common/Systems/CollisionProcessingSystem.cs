@@ -7,7 +7,7 @@ namespace DuckOfDoom.Danmaku
         private readonly IGroup<GameplayEntity> _group;
         private readonly IGroup<GameplayEntity> _playerGroup;
             
-        public CollisionProcessingSystem(IContext<GameplayEntity> context) 
+        public CollisionProcessingSystem(GameplayContext context) 
         {
             _group = context.GetGroup(GameplayMatcher.PlayerCollision);
             _group.OnEntityAdded += OnPlayerCollision;

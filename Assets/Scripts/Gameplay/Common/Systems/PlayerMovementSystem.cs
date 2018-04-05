@@ -6,7 +6,7 @@ namespace DuckOfDoom.Danmaku
 {
     public class PlayerMovementSystem : ReactiveSystem<GameplayEntity>
     {
-        public PlayerMovementSystem(IContext<GameplayEntity> context) : base(context)
+        public PlayerMovementSystem(GameplayContext context) : base(context)
         {
         }
 

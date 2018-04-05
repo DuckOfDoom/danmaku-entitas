@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace DuckOfDoom.Danmaku
 {
@@ -8,7 +7,6 @@ namespace DuckOfDoom.Danmaku
 	/// </summary>
 	public class Main : MonoBehaviour
 	{
-		[UsedImplicitly] 
 		public void Awake()
 		{
 			new StartupSystem().Initialize();
