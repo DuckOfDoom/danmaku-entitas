@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using DuckOfDoom.Danmaku.Configuration;
+using Zenject;
 
 namespace DuckOfDoom.Danmaku
 {
@@ -6,7 +7,7 @@ namespace DuckOfDoom.Danmaku
     {
         public override void InstallBindings()
         {
-            // Here be some global stuff
+            Container.Bind<IJsonSerializer>().To<JsonSerializer>().AsSingle();
         }
     }
 }

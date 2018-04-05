@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+using DuckOfDoom.Danmaku.Configuration;
 using Entitas;
 using UnityEngine;
+using Zenject;
 
 namespace DuckOfDoom.Danmaku
 {
     public class PlayerMovementSystem : ReactiveSystem<GameplayEntity>
     {
-        public PlayerMovementSystem(GameplayContext context) : base(context)
-        {
-        }
+        [Inject] private ICommonGameplayConfig CommonConfig { get; set; }
+        
+        public PlayerMovementSystem(GameplayContext context) : base(context) { }
 
         protected override ICollector<GameplayEntity> GetTrigger(IContext<GameplayEntity> context)
         {
@@ -31,13 +33,12 @@ namespace DuckOfDoom.Danmaku
             entities.ForEach(e =>
             {
                 var direction = e.playerMovementDirection.Direction;
- 
-                // Add speed and configuration?
-                e.ReplacePosition(
-                    e.position.Value += direction * Time.deltaTime
-//                    e.position.X += direction.x * Time.deltaTime,
-//                    e.position.Y += direction.y * Time.deltaTime,
-                );
+                var newPosition = e.position.Value + direction * CommonConfig.PlayerSpeedMultiplier * Time.deltaTime;
+                
+                if (!CommonConfig.PlayerMovementBounds.Contains(newPosition))
+                    newPosition = CommonConfig.PlayerMovementBounds.ClosestPoint(newPosition);
+                
+                e.ReplacePosition(newPosition);
             });
         }
     }

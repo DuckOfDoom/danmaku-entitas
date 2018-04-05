@@ -1,4 +1,5 @@
-﻿using DuckOfDoom.Danmaku.Utility;
+﻿using DuckOfDoom.Danmaku.Configuration;
+using DuckOfDoom.Danmaku.Utility;
 using UnityEngine;
 
 namespace DuckOfDoom.Danmaku
@@ -10,6 +11,7 @@ namespace DuckOfDoom.Danmaku
 	    public override void InstallBindings()
 	    {
 		    Container.Bind<GameplayContext>().FromInstance(Contexts.sharedInstance.gameplay).AsSingle();
+		    Container.Bind<ICommonGameplayConfig>().To<CommonGameplayConfig>().FromScriptableObjectResource("Config/CommonGameplayConfig").AsSingle();
 		    
 		    // Update systems
 		    InstallCommonSystem<InitializePlayerSystem>();
