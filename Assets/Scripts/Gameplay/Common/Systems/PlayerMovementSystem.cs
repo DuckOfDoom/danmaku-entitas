@@ -9,6 +9,7 @@ namespace DuckOfDoom.Danmaku
     public class PlayerMovementSystem : ReactiveSystem<GameplayEntity>
     {
         [Inject] private ICommonGameplayConfig CommonConfig { get; set; }
+        [Inject] private IPlayerSettings PlayerSettings { get; set; }
         
         public PlayerMovementSystem(GameplayContext context) : base(context) { }
 
@@ -33,7 +34,7 @@ namespace DuckOfDoom.Danmaku
             entities.ForEach(e =>
             {
                 var direction = e.playerMovementDirection.Direction;
-                var newPosition = e.position.Value + direction * CommonConfig.PlayerSpeedMultiplier * Time.deltaTime;
+                var newPosition = e.position.Value + direction * PlayerSettings.Speed * Time.deltaTime;
                 
                 if (!CommonConfig.GameplayArea.Contains(newPosition))
                     newPosition = CommonConfig.GameplayArea.ClosestPoint(newPosition);

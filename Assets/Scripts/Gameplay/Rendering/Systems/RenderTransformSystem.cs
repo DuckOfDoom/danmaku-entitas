@@ -11,7 +11,7 @@ namespace DuckOfDoom.Danmaku
         protected override ICollector<GameplayEntity> GetTrigger(IContext<GameplayEntity> context)
         {
             return context.CreateCollector(
-                GameplayMatcher.AnyOf(
+                GameplayMatcher.AllOf(
                     GameplayMatcher.Position,
                     GameplayMatcher.View
                 )

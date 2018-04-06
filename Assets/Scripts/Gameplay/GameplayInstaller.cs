@@ -12,6 +12,7 @@ namespace DuckOfDoom.Danmaku
 	    {
 		    Container.Bind<GameplayContext>().FromInstance(Contexts.sharedInstance.gameplay).AsSingle();
 		    Container.Bind<ICommonGameplayConfig>().To<CommonGameplayConfig>().FromScriptableObjectResource("Config/CommonGameplayConfig").AsSingle();
+		    Container.Bind<IPlayerSettings>().FromResolveGetter<ICommonGameplayConfig>(c => c.PlayerSettings);
 		    
 		    // Update systems
 		    InstallCommonSystem<InitializePlayerSystem>();
@@ -24,6 +25,8 @@ namespace DuckOfDoom.Danmaku
 		    InstallUpdateSystem<RenderTransformSystem>();
 		    InstallUpdateSystem<RenderSpriteSystem>();
 		    InstallUpdateSystem<InflictDamageSystem>();
+		    InstallUpdateSystem<SpawnEnemiesSystem>();
+		    InstallUpdateSystem<DestroyBeyondBoundsSystem>();
 
 		    // Update systems
 		    InstallFixedUpdateSystem<GameTimeSystem>();

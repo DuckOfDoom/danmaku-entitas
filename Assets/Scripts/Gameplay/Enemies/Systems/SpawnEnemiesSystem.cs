@@ -1,29 +1,47 @@
-﻿using Entitas;
+﻿using DuckOfDoom.Danmaku.Configuration;
+using Entitas;
+using UnityEngine;
+using Zenject;
+using Random = UnityEngine.Random;
 
 namespace DuckOfDoom.Danmaku
 {
     public class SpawnEnemiesSystem : IExecuteSystem
     {
-        private readonly IContext<GameplayEntity> _context;
+        [Inject] private GameplayContext Context { get; set; }
+        [Inject] private ICommonGameplayConfig CommonConfig { get; set; }
+        
         private readonly IGroup<GameplayEntity> _gameTime;
         
-        public SpawnEnemiesSystem(IContext<GameplayEntity> context)
+        public SpawnEnemiesSystem(GameplayContext context)
         {
-            _context = context;
-            _gameTime = context.GetGroup(GameplayMatcher.GameTimeSystem);
+            _gameTime = context.GetGroup(GameplayMatcher.GameTime);
         }
 
         public void Execute()
         {
-            if (_gameTime.GetSingleEntity().gameTime.Tick % 1000 == 0)
+            if (_gameTime.GetSingleEntity().gameTime.Tick % 1 == 0)
             {
-                AddSimpleSpawner(_context.CreateEntity());
+                SpawnBullet();
             }
         }
 
-        private void AddSimpleSpawner(GameplayEntity entity)
+        private void SpawnBullet()
         {
+            var e = Context.CreateEntity();
+            var gameplayArea = CommonConfig.GameplayArea;
+
+            e.AddPosition(new Vector2(
+                    Random.Range(gameplayArea.min.x, gameplayArea.max.x),
+                    Random.Range(gameplayArea.min.y, gameplayArea.max.y)
+                )
+            );
+
+            // TODO: Configure enemy parameters!
+            e.AddVelocity(Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward) * Vector3.up * 20 * Random.value, 0);
             
+            e.AddCollidable(0.1f);
+            e.AddDamageDealer(5);
         }
     }
 }
