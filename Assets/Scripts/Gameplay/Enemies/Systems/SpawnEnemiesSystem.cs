@@ -20,7 +20,7 @@ namespace DuckOfDoom.Danmaku
 
         public void Execute()
         {
-            if (_gameTime.GetSingleEntity().gameTime.Tick % 1 == 0)
+            if (_gameTime.GetSingleEntity().gameTime.Tick % 10 == 0)
             {
                 SpawnBullet();
             }
@@ -38,10 +38,10 @@ namespace DuckOfDoom.Danmaku
             );
 
             // TODO: Configure enemy parameters!
-            e.AddVelocity(Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward) * Vector3.up * 20 * Random.value, 0);
+            e.AddVelocity(Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward) * Vector3.up * 10 * Random.value, 0);
             
-            e.AddCollidable(0.1f);
-            e.AddDamageDealer(5);
+            e.AddCollidable(0.5f);
+//            e.AddDamageDealer(5);
         }
     }
 }
