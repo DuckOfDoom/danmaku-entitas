@@ -6,6 +6,9 @@ namespace DuckOfDoom.Danmaku
     [Gameplay, Unique]
     public class GameTimeComponent : IComponent
     {
-        public ulong Tick { get; set; }
+        public int Frames { get; set; }
+        public float Seconds { get; set; }
+        
+        public float DeltaTime { get; set; }
     }
 }

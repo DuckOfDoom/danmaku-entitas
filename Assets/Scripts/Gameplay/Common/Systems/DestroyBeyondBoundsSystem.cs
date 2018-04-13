@@ -49,11 +49,6 @@ namespace DuckOfDoom.Danmaku
 
                     if (!destructionBounds.Contains(offsetPoint))
                         e.Destroy();
-                    
-//                    if (!destructionBounds.Contains(e.position.Value))
-//                    {
-//                        e.Destroy();
-//                    }
                 }
             });
         }

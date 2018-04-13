@@ -1,4 +1,5 @@
 using Entitas;
+using UnityEngine;
 
 namespace DuckOfDoom.Danmaku
 {
@@ -14,12 +15,15 @@ namespace DuckOfDoom.Danmaku
 
         public void Initialize()
         {
-            _context.CreateEntity().AddGameTime(0);
+            _context.CreateEntity().AddGameTime(0, 0, Time.deltaTime);
         }
 
         public void Execute()
         {
-            _context.gameTime.Tick++;
+            _context.gameTime.Seconds += Time.deltaTime;
+            _context.gameTime.DeltaTime = Time.deltaTime;
+            
+            _context.gameTime.Frames++;
         }
     }
 }

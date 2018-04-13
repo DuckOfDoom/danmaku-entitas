@@ -18,6 +18,7 @@ namespace DuckOfDoom.Danmaku
         private void OnPlayerCollision(IGroup<GameplayEntity> group, GameplayEntity entity, int index, IComponent component)
         {
             ProcessCollision(entity.playerCollision);
+            entity.Destroy();
         }
 
         private void ProcessCollision(PlayerCollision playerCollision)

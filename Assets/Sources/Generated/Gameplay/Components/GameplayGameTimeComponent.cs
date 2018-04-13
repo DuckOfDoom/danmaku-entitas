@@ -12,22 +12,22 @@ public partial class GameplayContext {
     public DuckOfDoom.Danmaku.GameTimeComponent gameTime { get { return gameTimeEntity.gameTime; } }
     public bool hasGameTime { get { return gameTimeEntity != null; } }
 
-    public GameplayEntity SetGameTime(ulong newTick) {
+    public GameplayEntity SetGameTime(int newFrames, float newSeconds, float newDeltaTime) {
         if (hasGameTime) {
             throw new Entitas.EntitasException("Could not set GameTime!\n" + this + " already has an entity with DuckOfDoom.Danmaku.GameTimeComponent!",
                 "You should check if the context already has a gameTimeEntity before setting it or use context.ReplaceGameTime().");
         }
         var entity = CreateEntity();
-        entity.AddGameTime(newTick);
+        entity.AddGameTime(newFrames, newSeconds, newDeltaTime);
         return entity;
     }
 
-    public void ReplaceGameTime(ulong newTick) {
+    public void ReplaceGameTime(int newFrames, float newSeconds, float newDeltaTime) {
         var entity = gameTimeEntity;
         if (entity == null) {
-            entity = SetGameTime(newTick);
+            entity = SetGameTime(newFrames, newSeconds, newDeltaTime);
         } else {
-            entity.ReplaceGameTime(newTick);
+            entity.ReplaceGameTime(newFrames, newSeconds, newDeltaTime);
         }
     }
 
@@ -49,17 +49,21 @@ public partial class GameplayEntity {
     public DuckOfDoom.Danmaku.GameTimeComponent gameTime { get { return (DuckOfDoom.Danmaku.GameTimeComponent)GetComponent(GameplayComponentsLookup.GameTime); } }
     public bool hasGameTime { get { return HasComponent(GameplayComponentsLookup.GameTime); } }
 
-    public void AddGameTime(ulong newTick) {
+    public void AddGameTime(int newFrames, float newSeconds, float newDeltaTime) {
         var index = GameplayComponentsLookup.GameTime;
         var component = CreateComponent<DuckOfDoom.Danmaku.GameTimeComponent>(index);
-        component.Tick = newTick;
+        component.Frames = newFrames;
+        component.Seconds = newSeconds;
+        component.DeltaTime = newDeltaTime;
         AddComponent(index, component);
     }
 
-    public void ReplaceGameTime(ulong newTick) {
+    public void ReplaceGameTime(int newFrames, float newSeconds, float newDeltaTime) {
         var index = GameplayComponentsLookup.GameTime;
         var component = CreateComponent<DuckOfDoom.Danmaku.GameTimeComponent>(index);
-        component.Tick = newTick;
+        component.Frames = newFrames;
+        component.Seconds = newSeconds;
+        component.DeltaTime = newDeltaTime;
         ReplaceComponent(index, component);
     }
 

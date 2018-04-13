@@ -19,13 +19,14 @@ public static class GameplayComponentsLookup {
     public const int PlayerMovementDirection = 8;
     public const int Position = 9;
     public const int Rotation = 10;
-    public const int Sprite = 11;
-    public const int SpriteRenderer = 12;
-    public const int Velocity = 13;
-    public const int View = 14;
-    public const int GameTimeSystem = 15;
+    public const int Spawner = 11;
+    public const int Sprite = 12;
+    public const int SpriteRenderer = 13;
+    public const int Velocity = 14;
+    public const int View = 15;
+    public const int GameTimeSystem = 16;
 
-    public const int TotalComponents = 16;
+    public const int TotalComponents = 17;
 
     public static readonly string[] componentNames = {
         "Collidable",
@@ -39,6 +40,7 @@ public static class GameplayComponentsLookup {
         "PlayerMovementDirection",
         "Position",
         "Rotation",
+        "Spawner",
         "Sprite",
         "SpriteRenderer",
         "Velocity",
@@ -58,6 +60,7 @@ public static class GameplayComponentsLookup {
         typeof(DuckOfDoom.Danmaku.PlayerMovementDirectionComponent),
         typeof(DuckOfDoom.Danmaku.PositionComponent),
         typeof(DuckOfDoom.Danmaku.RotationComponent),
+        typeof(DuckOfDoom.Danmaku.Spawner),
         typeof(DuckOfDoom.Danmaku.SpriteComponent),
         typeof(DuckOfDoom.Danmaku.SpriteRendererComponent),
         typeof(DuckOfDoom.Danmaku.VelocityComponent),
