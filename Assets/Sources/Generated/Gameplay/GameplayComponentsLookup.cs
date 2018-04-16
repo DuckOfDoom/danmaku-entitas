@@ -12,18 +12,18 @@ public static class GameplayComponentsLookup {
     public const int Damage = 1;
     public const int DamageDealer = 2;
     public const int Enemy = 3;
-    public const int GameTime = 4;
-    public const int Health = 5;
-    public const int PlayerCollision = 6;
-    public const int Player = 7;
-    public const int PlayerMovementDirection = 8;
-    public const int Position = 9;
-    public const int Rotation = 10;
-    public const int Spawner = 11;
-    public const int Sprite = 12;
-    public const int SpriteRenderer = 13;
-    public const int Velocity = 14;
-    public const int View = 15;
+    public const int GameObject = 4;
+    public const int GameTime = 5;
+    public const int Health = 6;
+    public const int PlayerCollision = 7;
+    public const int Player = 8;
+    public const int PlayerMovementDirection = 9;
+    public const int Position = 10;
+    public const int Rotation = 11;
+    public const int Spawner = 12;
+    public const int Sprite = 13;
+    public const int SpriteRenderer = 14;
+    public const int Velocity = 15;
     public const int GameTimeSystem = 16;
 
     public const int TotalComponents = 17;
@@ -33,6 +33,7 @@ public static class GameplayComponentsLookup {
         "Damage",
         "DamageDealer",
         "Enemy",
+        "GameObject",
         "GameTime",
         "Health",
         "PlayerCollision",
@@ -44,7 +45,6 @@ public static class GameplayComponentsLookup {
         "Sprite",
         "SpriteRenderer",
         "Velocity",
-        "View",
         "GameTimeSystem"
     };
 
@@ -53,6 +53,7 @@ public static class GameplayComponentsLookup {
         typeof(DuckOfDoom.Danmaku.Damage),
         typeof(DuckOfDoom.Danmaku.DamageDealer),
         typeof(DuckOfDoom.Danmaku.Enemy),
+        typeof(DuckOfDoom.Danmaku.GameObjectComponent),
         typeof(DuckOfDoom.Danmaku.GameTimeComponent),
         typeof(DuckOfDoom.Danmaku.Health),
         typeof(DuckOfDoom.Danmaku.PlayerCollision),
@@ -64,7 +65,6 @@ public static class GameplayComponentsLookup {
         typeof(DuckOfDoom.Danmaku.SpriteComponent),
         typeof(DuckOfDoom.Danmaku.SpriteRendererComponent),
         typeof(DuckOfDoom.Danmaku.VelocityComponent),
-        typeof(DuckOfDoom.Danmaku.ViewComponent),
         typeof(GameTimeSystemComponent)
     };
 }

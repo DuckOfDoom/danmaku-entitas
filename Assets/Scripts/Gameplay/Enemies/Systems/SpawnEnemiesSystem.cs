@@ -23,56 +23,44 @@ namespace DuckOfDoom.Danmaku
 
         public void Execute()
         {
-//            if (_gameTime.GetSingleEntity().gameTime.Frames % 10 == 0)
-//            {
-//                SpawnBullet();
-            if (!_spawned)
-                SpawnSpawner();
-            _spawned = true;
-//            }
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    SpawnSpawner(
+                        new SpawnerSettings
+                        {
+                            Type = SpawnerType.Continuous,
+                            Pattern = SpawnerPattern.Circular,
+                            SpawnPeriod = 5f,
+                            BurstDelay = 0.1f,
+                            BurstLength = 5f
+                        }
+                    );
+                }
+            }
         }
 
-        private void SpawnSpawner()
+        private void SpawnSpawner(ISpawnerSettings settings)
         {
             var e = Context.CreateEntity();
-            SetPosition(e);
+            SetRandomPosition(e);
             
-            e.AddSpawner(
-                new SpawnerSettings
-                {
-                    Type = SpawnerType.Continuous,
-                    Pattern = SpawnerPattern.Circular,
-                    SpawnPeriod = 5f,
-                    BurstDelay = 0.1f,
-                    BurstLength = 1f
-                },
-                0);
+            e.AddVelocity(MathUtils.GetRandomDirection() * MathUtils.Random(1f, 5f) , 0f);
+            e.AddCollidable(0.1f);
+            e.AddSpawner(settings, 0);
         }
         
-        private void SetPosition(GameplayEntity e)
+        private void SetRandomPosition(GameplayEntity e)
         {
             var gameplayArea = CommonConfig.GameplayArea;
 
             e.AddSprite("");
-                
             e.AddPosition(new Vector2(
                     Random.Range(gameplayArea.min.x, gameplayArea.max.x),
                     Random.Range(gameplayArea.min.y, gameplayArea.max.y)
                 )
             );
         }
-
-        private void SpawnBullet()
-        {
-            var e = Context.CreateEntity();
-            SetPosition(e);
-
-            // TODO: Configure enemy parameters!
-            e.AddVelocity(Quaternion.AngleAxis(Random.Range(0, 360), Vector3.forward) * Vector3.up * 10 * Random.value, 0);
-            
-            e.AddCollidable(0.5f);
-//            e.AddDamageDealer(5);
-        }
-
     }
 }

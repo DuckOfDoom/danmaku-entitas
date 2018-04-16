@@ -102,6 +102,7 @@ namespace DuckOfDoom.Danmaku
             e.isEnemy = true;
             e.AddPosition(position);
             e.AddCollidable(0.1f);
+            e.AddDamageDealer(1f);
             e.AddVelocity(linearVelocity, 0);
         }
     }

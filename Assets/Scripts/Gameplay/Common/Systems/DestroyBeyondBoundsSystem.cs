@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DuckOfDoom.Danmaku.Configuration;
 using Entitas;
+using Entitas.Unity;
 using UnityEngine;
 using Zenject;
 
@@ -36,21 +37,38 @@ namespace DuckOfDoom.Danmaku
             
             entities.ForEach(e =>
             {
+                var boundsCenter = (Vector2) destructionBounds.center;
+                var c = e.position.Value;
+                var v = boundsCenter - c;
+
+                Vector2 offsetPoint;
+                
                 if (e.hasCollidable)
                 {
-                    var boundsCenter = (Vector2)destructionBounds.center;
-                    var c = e.position.Value;
                     var r = e.collidable.CollisionRadius;
-
-                    var v = boundsCenter - c;
                     var closestPointToCenter = c + v / v.magnitude * r;
-
-                    var offsetPoint = closestPointToCenter + v.normalized * DESTRUCTION_OFFSET;
-
-                    if (!destructionBounds.Contains(offsetPoint))
-                        e.Destroy();
+                    offsetPoint = closestPointToCenter + v.normalized * DESTRUCTION_OFFSET;
                 }
+                else
+                {
+                    offsetPoint = v.normalized * DESTRUCTION_OFFSET;
+                }
+                
+                if (!destructionBounds.Contains(offsetPoint))
+                    Destroy(e);
             });
+        }
+
+        // TODO: Pooling!
+        private void Destroy(GameplayEntity entity)
+        {
+            if (entity.hasGameObject)
+            {
+                entity.gameObject.Instance.Unlink();
+                Object.Destroy(entity.gameObject.Instance);
+            }
+
+            entity.Destroy();
         }
     }
 }

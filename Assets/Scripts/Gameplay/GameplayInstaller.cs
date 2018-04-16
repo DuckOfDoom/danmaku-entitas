@@ -25,7 +25,7 @@ namespace DuckOfDoom.Danmaku
 		    InstallCommonSystem<CollisionProcessingSystem>();
 		    
 		    InstallUpdateSystem<GameTimeSystem>();
-		    InstallUpdateSystem<AddViewSystem>();
+		    InstallUpdateSystem<CreateGameObjectsSystem>();
 		    InstallUpdateSystem<InputSystem>();
 		    InstallUpdateSystem<PlayerMovementSystem>();
 		    InstallUpdateSystem<ApplyVelocitySystem>();

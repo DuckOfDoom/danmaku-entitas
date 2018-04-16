@@ -53,7 +53,7 @@ namespace DuckOfDoom.Danmaku
 	        if (_material == null)
 		        _material = new Material(Shader.Find("Hidden/Internal-Colored"));
 		    
-//		    _material.SetPass(0);
+		    _material.SetPass(0);
 
 		    var point = center + new Vector2(radius, 0);
 		    var angle = CircleAngleDelta;
@@ -78,7 +78,7 @@ namespace DuckOfDoom.Danmaku
 	        if (_material == null)
 		        _material = new Material(Shader.Find("Hidden/Internal-Colored"));
 		    
-//		    _material.SetPass(0);
+		    _material.SetPass(0);
 		    
 		    GL.Begin(GL.LINES);
 		    GL.Color(color);

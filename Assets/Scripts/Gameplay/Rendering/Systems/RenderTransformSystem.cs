@@ -13,7 +13,7 @@ namespace DuckOfDoom.Danmaku
             return context.CreateCollector(
                 GameplayMatcher.AllOf(
                     GameplayMatcher.Position,
-                    GameplayMatcher.View
+                    GameplayMatcher.GameObject
                 )
             );
         }
@@ -24,7 +24,7 @@ namespace DuckOfDoom.Danmaku
         {
             entities.ForEach(e =>
             {
-                var tr = e.view.GameObject.transform;
+                var tr = e.gameObject.Instance.transform;
                 if (e.hasPosition)
                     tr.position = new Vector3(e.position.Value.x, e.position.Value.y, tr.position.z);
                 

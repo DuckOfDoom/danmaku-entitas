@@ -4,8 +4,8 @@ using UnityEngine;
 namespace DuckOfDoom.Danmaku
 {
     [Gameplay]
-    public class ViewComponent : IComponent
+    public class GameObjectComponent : IComponent
     {
-        public GameObject GameObject { get; set; }
+        public GameObject Instance { get; set; }
     }
 }
