@@ -30,11 +30,18 @@ namespace DuckOfDoom.Danmaku
                     SpawnSpawner(
                         new SpawnerSettings
                         {
-                            Type = SpawnerType.Continuous,
-                            Pattern = SpawnerPattern.Circular,
-                            SpawnPeriod = 5f,
-                            BurstDelay = 0.1f,
-                            BurstLength = 5f
+                            SpawnCount = 0,
+                            SpawnDelay = 2f,
+                            Pattern = new PatternSettings
+                            {
+                                Type = PatternType.Circular,
+                                Size = 7f
+                            },
+                            Burst = new BurstSettings
+                            {
+                                Count = 3,
+                                Delay = 0.2f
+                            }
                         }
                     );
                 }

@@ -8,6 +8,7 @@ namespace DuckOfDoom.Danmaku
         public ISpawnerSettings Settings { get; set; }
         
         public float LastSpawnedAt { get; set; }
+        public int TimesSpawned { get; set; }
     }
 
 }

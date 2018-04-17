@@ -10,7 +10,7 @@ namespace DuckOfDoom.Danmaku.Utility
     public class VisualizationController : MonoBehaviour
     {
 	    [Inject]
-	    private VisualizeCollidersSystem VisualizeSystem { get; set; }
+	    private VisualizationSystem VisualizeSystem { get; set; }
 	    
 	    [UsedImplicitly]
 	    public void OnPostRender()

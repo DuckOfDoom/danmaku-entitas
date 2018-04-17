@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using DuckOfDoom.Danmaku.Enemies.Settings;
 using Entitas;
 using ModestTree;
@@ -31,12 +30,17 @@ namespace DuckOfDoom.Danmaku
             _spawnersGroup.GetEntities().ForEach(e =>
             {
                 var spawner = e.spawner;
-                if (_gameTime.Seconds - spawner.LastSpawnedAt >= spawner.Settings.SpawnPeriod)
+                var spawnedEnough = spawner.Settings.SpawnCount > 0 && spawner.TimesSpawned < spawner.Settings.SpawnCount;
+                var canSpawn = _gameTime.Seconds - spawner.LastSpawnedAt >= spawner.Settings.SpawnDelay;
+                    
+                if (!spawnedEnough && canSpawn)
                 {
                     if (e.hasPosition)
                     {
-                        Spawn(e, spawner.Settings);
+                        _coroutineStarter.StartCoroutine(SpawnCircular(e, spawner.Settings));
+                        
                         spawner.LastSpawnedAt = _gameTime.Seconds;
+                        spawner.TimesSpawned++;
                     }
                     else
                         Debug.LogWarningFormat("Found a spawner with no position: {0}", e);
@@ -44,34 +48,16 @@ namespace DuckOfDoom.Danmaku
             });
         }
 
-        private void Spawn(GameplayEntity e, ISpawnerSettings settings)
+        private IEnumerator SpawnCircular(GameplayEntity e, ISpawnerSettings settings)
         {
-            switch (settings.Pattern)
-            {
-                case SpawnerPattern.Undefined:
-                    break;
-                case SpawnerPattern.Circular:
-                {
-                    _coroutineStarter.StartCoroutine(
-                        SpawnCircular(e, settings.BurstLength, settings.BurstDelay)
-                    );
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        private IEnumerator SpawnCircular(GameplayEntity e, float burstLength, float burstDelay)
-        {
-            var currentBurstLength = 0f;
-            var currentBurstDelay = burstDelay;
+            var currentBurstCount = 0f;
+            var currentBurstDelay = settings.Burst.Delay;
             
-            while (e.isEnabled && currentBurstLength < burstLength)
+            while (e.isEnabled && currentBurstCount < settings.Burst.Count)
             {
-                if (currentBurstDelay >= burstDelay)
+                if (currentBurstDelay >= settings.Burst.Delay)
                 {
-                    var angleDelta = Mathf.PI * 2 / 7f;
+                    var angleDelta = Mathf.PI * 2 / settings.Pattern.Size;
                     var angle = 0f;
                     var centerOffset = 0.1f;
 
@@ -86,11 +72,12 @@ namespace DuckOfDoom.Danmaku
                     }
 
                     currentBurstDelay = 0;
+                    currentBurstCount++;
                 }
                 else
+                {
                     currentBurstDelay += _gameTime.DeltaTime;
-
-                currentBurstLength += _gameTime.DeltaTime;
+                }
 
                 yield return null;
             }

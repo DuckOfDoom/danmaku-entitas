@@ -6,7 +6,7 @@ using Zenject;
 
 namespace DuckOfDoom.Danmaku
 {
-    public class VisualizeCollidersSystem : IExecuteSystem, ITearDownSystem
+    public class VisualizationSystem : IExecuteSystem, ITearDownSystem
     {
 	    [Inject] private ICommonGameplayConfig CommonConfig { get; set; }
 	    
@@ -15,7 +15,7 @@ namespace DuckOfDoom.Danmaku
         private const int CircleResolution = 100;
         private const float CircleAngleDelta = (float)(2 * Math.PI / CircleResolution);
 	    
-	    public VisualizeCollidersSystem(GameplayContext context)
+	    public VisualizationSystem(GameplayContext context)
 	    {
 		    _visualizationGroup = context.GetGroup(
 			    GameplayMatcher.AllOf(

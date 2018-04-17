@@ -44,7 +44,7 @@ namespace DuckOfDoom.Danmaku
 			    .AsSingle()
 			    .NonLazy();
 		    
-		    Container.Bind<VisualizeCollidersSystem>().AsSingle();
+		    Container.Bind<VisualizationSystem>().AsSingle();
 		    
 		    base.InstallBindings();
 	    }
