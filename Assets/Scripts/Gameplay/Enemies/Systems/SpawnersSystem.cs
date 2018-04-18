@@ -66,7 +66,7 @@ namespace DuckOfDoom.Danmaku
                         var vectorAway = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
                         var pos = vectorAway * 2f * centerOffset + e.position.Value;
 
-                        SpawnBullet(pos, vectorAway * 5f);
+                        SpawnBullet(pos, vectorAway * 5f + (e.hasVelocity ? e.velocity.Linear : Vector2.zero));
 
                         angle += angleDelta;
                     }
