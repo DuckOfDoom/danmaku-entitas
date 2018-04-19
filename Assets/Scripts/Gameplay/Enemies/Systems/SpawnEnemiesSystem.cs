@@ -11,6 +11,7 @@ namespace DuckOfDoom.Danmaku
     {
         [Inject] private GameplayContext Context { get; set; }
         [Inject] private ICommonGameplayConfig CommonConfig { get; set; }
+        [Inject] private ISpawnersConfig SpawnersConfig { get; set; }
         
         private readonly IGroup<GameplayEntity> _gameTime;
         
@@ -26,25 +27,7 @@ namespace DuckOfDoom.Danmaku
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    SpawnSpawner(
-                        new SpawnerSettings
-                        {
-                            SpawnCount = 0,
-                            SpawnDelay = 2f,
-                            Pattern = new PatternSettings
-                            {
-                                Type = PatternType.Circular,
-                                Size = 7f
-                            },
-                            Burst = new BurstSettings
-                            {
-                                Count = 3,
-                                Delay = 0.2f
-                            }
-                        }
-                    );
-                }
+                    SpawnSpawner(SpawnersConfig.Get("Test1"));
             }
         }
 

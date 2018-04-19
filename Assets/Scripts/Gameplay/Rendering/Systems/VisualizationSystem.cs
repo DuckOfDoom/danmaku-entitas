@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DuckOfDoom.Danmaku.Configuration;
 using Entitas;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 using Zenject;
 
@@ -48,7 +46,7 @@ namespace DuckOfDoom.Danmaku
 		        if (e.isPlayer)
 			        DrawStar(e.position.Value, 0.2f, Color.cyan);
 	        }
-	        
+
 	        DrawBounds(CommonConfig.GameplayArea, Color.yellow);
 	        DrawBounds(CommonConfig.ProjectileDestructionBounds, Color.red);
         }
@@ -63,13 +61,17 @@ namespace DuckOfDoom.Danmaku
 	    
 	    private void DrawStar(Vector2 center, float size, Color color)
 	    {
+		    var matrix = Matrix4x4.TRS(center, Quaternion.Euler(0, 0, 0), new Vector3(size, size, 0));
+		    
 		    var angle = 90 * Mathf.Deg2Rad;
 		    var points = new List<Vector2>();
 		    var delta = (float)Math.PI * 2 / 5;
 
 		    for (var i = 0; i < 5; i++)
 		    {
-			    points.Add(center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * size);
+			    var point = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+			    point = matrix.MultiplyPoint3x4(point);
+			    points.Add(point);
 			    angle += delta;
 		    }
 

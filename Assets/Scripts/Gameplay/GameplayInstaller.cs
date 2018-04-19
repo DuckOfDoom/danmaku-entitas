@@ -17,8 +17,12 @@ namespace DuckOfDoom.Danmaku
 		    }).AsSingle();
 			    
 		    Container.Bind<GameplayContext>().FromInstance(Contexts.sharedInstance.gameplay).AsSingle();
-		    Container.Bind<ICommonGameplayConfig>().To<CommonGameplayConfig>().FromScriptableObjectResource("Config/CommonGameplayConfig").AsSingle();
+		    
+		    // Configuration
+		    Container.Bind<ICommonGameplayConfig>().To<CommonGameplayConfig>().FromScriptableObjectResource("Config/CommonGameplayConfig").AsSingle().NonLazy();
 		    Container.Bind<IPlayerSettings>().FromResolveGetter<ICommonGameplayConfig>(c => c.PlayerSettings);
+		    
+		    Container.Bind<ISpawnersConfig>().To<SpawnersConfig>().FromScriptableObjectResource("Config/SpawnersConfig").AsSingle().NonLazy();
 		    
 		    // Update systems
 		    InstallCommonSystem<InitializePlayerSystem>();

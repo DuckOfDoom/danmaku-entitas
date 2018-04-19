@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace DuckOfDoom.Danmaku.Enemies.Settings
 {
@@ -17,14 +18,10 @@ namespace DuckOfDoom.Danmaku.Enemies.Settings
         float SpawnDelay { get; }
     }
     
-    [Serializable]
-    public class SpawnerSettings : ISpawnerSettings
+    public interface IBurstSettings
     {
-        public IPatternSettings Pattern { get; set; }
-        public IBurstSettings Burst { get; set; }
-        
-        public int SpawnCount { get; set; }
-        public float SpawnDelay { get; set; }
+        int Count { get; }
+        float Delay { get; }
     }
     
     public interface IPatternSettings
@@ -33,24 +30,40 @@ namespace DuckOfDoom.Danmaku.Enemies.Settings
         float Size { get; }
     }
 
+    
+    [Serializable]
+    public class SpawnerSettings : ISpawnerSettings
+    {
+        [SerializeField] private int _spawnCount;
+        [SerializeField] private float _spawnDelay;
+        [SerializeField] private PatternSettings _pattern;
+        [SerializeField] private BurstSettings _burst;
+
+        public IPatternSettings Pattern { get { return _pattern; } }
+        public IBurstSettings Burst { get { return _burst; } } 
+        public int SpawnCount { get { return _spawnCount; } } 
+        public float SpawnDelay { get { return _spawnDelay; } } 
+    }
+    
     [Serializable]
     public class PatternSettings : IPatternSettings
     {
-        public PatternType Type { get; set; }
-        public float Size { get; set; }
+        [SerializeField] private PatternType _type;
+        [SerializeField] private float _size;
+
+        public PatternType Type { get { return _type; } }
+        public float Size { get { return _size; } }
     }
 
-    public interface IBurstSettings
-    {
-        int Count { get; }
-        float Delay { get; }
-    }
 
     [Serializable]
     public class BurstSettings : IBurstSettings
     {
-        public int Count { get; set; }
-        public float Delay { get; set; }
+        [SerializeField] private int _count;
+        [SerializeField] private float _delay;
+
+        public int Count { get { return _count; } }
+        public float Delay { get { return _delay; } }
     }
 
 }
