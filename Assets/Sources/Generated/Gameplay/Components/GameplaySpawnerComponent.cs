@@ -11,19 +11,21 @@ public partial class GameplayEntity {
     public DuckOfDoom.Danmaku.Spawner spawner { get { return (DuckOfDoom.Danmaku.Spawner)GetComponent(GameplayComponentsLookup.Spawner); } }
     public bool hasSpawner { get { return HasComponent(GameplayComponentsLookup.Spawner); } }
 
-    public void AddSpawner(DuckOfDoom.Danmaku.Enemies.Settings.ISpawnerSettings newSettings, float newLastSpawnedAt) {
+    public void AddSpawner(DuckOfDoom.Danmaku.Enemies.Settings.ISpawnerSettings newSettings, float newLastSpawnedAt, int newTimesSpawned) {
         var index = GameplayComponentsLookup.Spawner;
         var component = CreateComponent<DuckOfDoom.Danmaku.Spawner>(index);
         component.Settings = newSettings;
         component.LastSpawnedAt = newLastSpawnedAt;
+        component.TimesSpawned = newTimesSpawned;
         AddComponent(index, component);
     }
 
-    public void ReplaceSpawner(DuckOfDoom.Danmaku.Enemies.Settings.ISpawnerSettings newSettings, float newLastSpawnedAt) {
+    public void ReplaceSpawner(DuckOfDoom.Danmaku.Enemies.Settings.ISpawnerSettings newSettings, float newLastSpawnedAt, int newTimesSpawned) {
         var index = GameplayComponentsLookup.Spawner;
         var component = CreateComponent<DuckOfDoom.Danmaku.Spawner>(index);
         component.Settings = newSettings;
         component.LastSpawnedAt = newLastSpawnedAt;
+        component.TimesSpawned = newTimesSpawned;
         ReplaceComponent(index, component);
     }
 

@@ -31,8 +31,8 @@ namespace DuckOfDoom.Danmaku
             {
                 var spawner = e.spawner;
                 var spawnedEnough = spawner.Settings.SpawnCount > 0 && spawner.TimesSpawned < spawner.Settings.SpawnCount;
-                var canSpawn = _gameTime.Seconds - spawner.LastSpawnedAt >= spawner.Settings.SpawnDelay;
-                    
+                var canSpawn = spawner.LastSpawnedAt <= 0 || _gameTime.Seconds - spawner.LastSpawnedAt >= spawner.Settings.SpawnDelay;
+                
                 if (!spawnedEnough && canSpawn)
                 {
                     if (e.hasPosition)

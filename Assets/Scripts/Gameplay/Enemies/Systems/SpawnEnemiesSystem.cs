@@ -13,11 +13,11 @@ namespace DuckOfDoom.Danmaku
         [Inject] private ICommonGameplayConfig CommonConfig { get; set; }
         [Inject] private ISpawnersConfig SpawnersConfig { get; set; }
         
-        private readonly IGroup<GameplayEntity> _gameTime;
+//        private readonly IGroup<GameplayEntity> _gameTime;
         
         public SpawnEnemiesSystem(GameplayContext context)
         {
-            _gameTime = context.GetGroup(GameplayMatcher.GameTime);
+//            _gameTime = context.GetGroup(GameplayMatcher.GameTime);
         }
 
         private bool _spawned;
@@ -38,7 +38,7 @@ namespace DuckOfDoom.Danmaku
             
             e.AddVelocity(MathUtils.GetRandomDirection() * MathUtils.Random(1f, 5f) , 0f);
             e.AddCollidable(0.1f);
-            e.AddSpawner(settings, 0);
+            e.AddSpawner(settings, 0, 0);
         }
         
         private void SetRandomPosition(GameplayEntity e)
