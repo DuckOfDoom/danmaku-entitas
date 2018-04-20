@@ -1,4 +1,5 @@
 ﻿using DuckOfDoom.Danmaku.Configuration;
+using DuckOfDoom.Danmaku.Enemies.Factories;
 using DuckOfDoom.Danmaku.Utility;
 using UnityEngine;
 
@@ -23,6 +24,9 @@ namespace DuckOfDoom.Danmaku
 		    Container.Bind<IPlayerSettings>().FromResolveGetter<ICommonGameplayConfig>(c => c.PlayerSettings);
 		    
 		    Container.Bind<ISpawnersConfig>().To<SpawnersConfig>().FromScriptableObjectResource("Config/SpawnersConfig").AsSingle().NonLazy();
+		    
+		    Container.Bind<ISpawnersFactory>().To<SpawnersFactory>().AsSingle();
+		    Container.Bind<IProjectilesFactory>().To<ProjectilesFactory>().AsSingle();
 		    
 		    // Update systems
 		    InstallCommonSystem<InitializePlayerSystem>();

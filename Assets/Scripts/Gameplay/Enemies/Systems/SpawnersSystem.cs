@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DuckOfDoom.Danmaku.Enemies.Factories;
 using DuckOfDoom.Danmaku.Enemies.Settings;
 using Entitas;
 using ModestTree;
@@ -11,6 +12,7 @@ namespace DuckOfDoom.Danmaku
     {
         [Inject] private GameplayContext _contex;
         [Inject] private ICoroutineStarter _coroutineStarter;
+        [Inject] private IProjectilesFactory _projectilesFactory;
         
         private readonly IGroup<GameplayEntity> _spawnersGroup;
         private GameTimeComponent _gameTime;
@@ -37,7 +39,7 @@ namespace DuckOfDoom.Danmaku
                 {
                     if (e.hasPosition)
                     {
-                        _coroutineStarter.StartCoroutine(SpawnCircular(e, spawner.Settings));
+                        _coroutineStarter.StartCoroutine(Spawn(e, spawner.Settings));
                         
                         spawner.LastSpawnedAt = _gameTime.Seconds;
                         spawner.TimesSpawned++;
@@ -48,7 +50,7 @@ namespace DuckOfDoom.Danmaku
             });
         }
 
-        private IEnumerator SpawnCircular(GameplayEntity e, ISpawnerSettings settings)
+        private IEnumerator Spawn(GameplayEntity e, ISpawnerSettings settings)
         {
             var currentBurstCount = 0f;
             var currentBurstDelay = settings.Burst.Delay;
@@ -66,7 +68,10 @@ namespace DuckOfDoom.Danmaku
                         var vectorAway = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
                         var pos = vectorAway * 2f * centerOffset + e.position.Value;
 
-                        SpawnBullet(pos, vectorAway * 5f + (e.hasVelocity ? e.velocity.Linear : Vector2.zero));
+                        _projectilesFactory.SpawnProjectile(
+                            pos,
+                            vectorAway * 5f + (e.hasVelocity ? e.velocity.Linear : Vector2.zero)
+                        );
 
                         angle += angleDelta;
                     }
@@ -81,16 +86,6 @@ namespace DuckOfDoom.Danmaku
 
                 yield return null;
             }
-        }
-
-        private void SpawnBullet(Vector2 position, Vector2 linearVelocity)
-        {
-            var e = _contex.CreateEntity();
-            e.isEnemy = true;
-            e.AddPosition(position);
-            e.AddCollidable(0.1f);
-            e.AddDamageDealer(1f);
-            e.AddVelocity(linearVelocity, 0);
         }
     }
 }
