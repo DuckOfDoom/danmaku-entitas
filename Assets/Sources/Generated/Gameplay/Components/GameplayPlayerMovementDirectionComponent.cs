@@ -8,8 +8,8 @@
 //------------------------------------------------------------------------------
 public partial class GameplayContext {
 
-    public GameplayEntity playerMovementDirectionEntity { get { return GetGroup(GameplayMatcher.PlayerMovementDirection).GetSingleEntity(); } }
-    public DuckOfDoom.Danmaku.PlayerMovementDirectionComponent playerMovementDirection { get { return playerMovementDirectionEntity.playerMovementDirection; } }
+    public GameplayEntity playerMovementDirectionEntity { get { return GetGroup(GameplayMatcher.WispMovementDelta).GetSingleEntity(); } }
+    public DuckOfDoom.Danmaku.WispMovementDelta WispMovementDirection { get { return playerMovementDirectionEntity.WispMovementDirection; } }
     public bool hasPlayerMovementDirection { get { return playerMovementDirectionEntity != null; } }
 
     public GameplayEntity SetPlayerMovementDirection(UnityEngine.Vector2 newDirection) {
@@ -27,7 +27,7 @@ public partial class GameplayContext {
         if (entity == null) {
             entity = SetPlayerMovementDirection(newDirection);
         } else {
-            entity.ReplacePlayerMovementDirection(newDirection);
+            entity.ReplaceMovementDelta(newDirection);
         }
     }
 
@@ -46,20 +46,20 @@ public partial class GameplayContext {
 //------------------------------------------------------------------------------
 public partial class GameplayEntity {
 
-    public DuckOfDoom.Danmaku.PlayerMovementDirectionComponent playerMovementDirection { get { return (DuckOfDoom.Danmaku.PlayerMovementDirectionComponent)GetComponent(GameplayComponentsLookup.PlayerMovementDirection); } }
+    public DuckOfDoom.Danmaku.WispMovementDelta WispMovementDirection { get { return (DuckOfDoom.Danmaku.WispMovementDelta)GetComponent(GameplayComponentsLookup.PlayerMovementDirection); } }
     public bool hasPlayerMovementDirection { get { return HasComponent(GameplayComponentsLookup.PlayerMovementDirection); } }
 
     public void AddPlayerMovementDirection(UnityEngine.Vector2 newDirection) {
         var index = GameplayComponentsLookup.PlayerMovementDirection;
-        var component = CreateComponent<DuckOfDoom.Danmaku.PlayerMovementDirectionComponent>(index);
-        component.Direction = newDirection;
+        var component = CreateComponent<DuckOfDoom.Danmaku.WispMovementDelta>(index);
+        component.Delta = newDirection;
         AddComponent(index, component);
     }
 
-    public void ReplacePlayerMovementDirection(UnityEngine.Vector2 newDirection) {
+    public void ReplaceMovementDelta(UnityEngine.Vector2 newDirection) {
         var index = GameplayComponentsLookup.PlayerMovementDirection;
-        var component = CreateComponent<DuckOfDoom.Danmaku.PlayerMovementDirectionComponent>(index);
-        component.Direction = newDirection;
+        var component = CreateComponent<DuckOfDoom.Danmaku.WispMovementDelta>(index);
+        component.Delta = newDirection;
         ReplaceComponent(index, component);
     }
 
@@ -80,7 +80,7 @@ public sealed partial class GameplayMatcher {
 
     static Entitas.IMatcher<GameplayEntity> _matcherPlayerMovementDirection;
 
-    public static Entitas.IMatcher<GameplayEntity> PlayerMovementDirection {
+    public static Entitas.IMatcher<GameplayEntity> WispMovementDelta {
         get {
             if (_matcherPlayerMovementDirection == null) {
                 var matcher = (Entitas.Matcher<GameplayEntity>)Entitas.Matcher<GameplayEntity>.AllOf(GameplayComponentsLookup.PlayerMovementDirection);

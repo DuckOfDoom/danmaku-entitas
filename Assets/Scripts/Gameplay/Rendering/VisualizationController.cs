@@ -9,8 +9,7 @@ namespace DuckOfDoom.Danmaku.Utility
 	/// </summary>
     public class VisualizationController : MonoBehaviour
     {
-	    [Inject]
-	    private VisualizationSystem VisualizeSystem { get; set; }
+	    [Inject] private VisualizationSystem VisualizeSystem { get; set; }
 	    
 	    [UsedImplicitly]
 	    public void OnPostRender()

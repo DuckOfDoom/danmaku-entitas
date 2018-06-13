@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 public partial class GameplayContext {
 
-    public GameplayEntity playerEntity { get { return GetGroup(GameplayMatcher.Player).GetSingleEntity(); } }
+    public GameplayEntity playerEntity { get { return GetGroup(GameplayMatcher.Wisp).GetSingleEntity(); } }
 
     public bool isPlayer {
         get { return playerEntity != null; }
@@ -35,7 +35,7 @@ public partial class GameplayContext {
 //------------------------------------------------------------------------------
 public partial class GameplayEntity {
 
-    static readonly DuckOfDoom.Danmaku.PlayerComponent playerComponent = new DuckOfDoom.Danmaku.PlayerComponent();
+    static readonly DuckOfDoom.Danmaku.WispComponent WispComponent = new DuckOfDoom.Danmaku.WispComponent();
 
     public bool isPlayer {
         get { return HasComponent(GameplayComponentsLookup.Player); }
@@ -46,7 +46,7 @@ public partial class GameplayEntity {
                     var componentPool = GetComponentPool(index);
                     var component = componentPool.Count > 0
                             ? componentPool.Pop()
-                            : playerComponent;
+                            : WispComponent;
 
                     AddComponent(index, component);
                 } else {
@@ -69,7 +69,7 @@ public sealed partial class GameplayMatcher {
 
     static Entitas.IMatcher<GameplayEntity> _matcherPlayer;
 
-    public static Entitas.IMatcher<GameplayEntity> Player {
+    public static Entitas.IMatcher<GameplayEntity> Wisp {
         get {
             if (_matcherPlayer == null) {
                 var matcher = (Entitas.Matcher<GameplayEntity>)Entitas.Matcher<GameplayEntity>.AllOf(GameplayComponentsLookup.Player);

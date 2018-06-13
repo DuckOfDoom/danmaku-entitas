@@ -20,10 +20,11 @@ namespace DuckOfDoom.Danmaku
 		    Container.Bind<GameplayContext>().FromInstance(Contexts.sharedInstance.gameplay).AsSingle();
 		    
 		    // Configuration
-		    Container.Bind<ICommonGameplayConfig>().To<CommonGameplayConfig>().FromScriptableObjectResource("Config/CommonGameplayConfig").AsSingle().NonLazy();
-		    Container.Bind<IPlayerSettings>().FromResolveGetter<ICommonGameplayConfig>(c => c.PlayerSettings);
+		    Container.Bind<IGameplayConfig>().To<GameplayConfig>().FromScriptableObjectResource("Config/CommonGameplayConfig").AsSingle().NonLazy();
+		    Container.Bind<IPlayerSettings>().FromResolveGetter<IGameplayConfig>(c => c.PlayerSettings);
 		    
 		    Container.Bind<ISpawnersConfig>().To<SpawnersConfig>().FromScriptableObjectResource("Config/SpawnersConfig").AsSingle().NonLazy();
+		    Container.Bind<ICommonConfig>().To<CommonConfig>().FromScriptableObjectResource("Config/CommonConfig").AsSingle().NonLazy();
 		    
 		    Container.Bind<ISpawnersFactory>().To<SpawnersFactory>().AsSingle();
 		    Container.Bind<IProjectilesFactory>().To<ProjectilesFactory>().AsSingle();
@@ -35,7 +36,7 @@ namespace DuckOfDoom.Danmaku
 		    InstallUpdateSystem<GameTimeSystem>();
 		    InstallUpdateSystem<CreateGameObjectsSystem>();
 		    InstallUpdateSystem<InputSystem>();
-		    InstallUpdateSystem<PlayerMovementSystem>();
+		    InstallUpdateSystem<WispMovementSystem>();
 		    InstallUpdateSystem<ApplyVelocitySystem>();
 		    InstallUpdateSystem<RenderTransformSystem>();
 		    InstallUpdateSystem<RenderSpriteSystem>();
@@ -48,7 +49,12 @@ namespace DuckOfDoom.Danmaku
 		    InstallFixedUpdateSystem<CollisionDetectionSystem>();
 
 		    Container.Bind<VisualizationController>()
-			    .FromNewComponentOn(context => _mainCamera.gameObject)
+			    .FromNewComponentOn(_ => _mainCamera.gameObject)
+			    .AsSingle()
+			    .NonLazy();
+		    
+			Container.Bind<ICamera>()
+			    .FromMethod(_ => new UnityCamera(_mainCamera))
 			    .AsSingle()
 			    .NonLazy();
 		    

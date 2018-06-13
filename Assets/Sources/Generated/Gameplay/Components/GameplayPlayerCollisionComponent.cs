@@ -8,19 +8,19 @@
 //------------------------------------------------------------------------------
 public partial class GameplayEntity {
 
-    public DuckOfDoom.Danmaku.PlayerCollision playerCollision { get { return (DuckOfDoom.Danmaku.PlayerCollision)GetComponent(GameplayComponentsLookup.PlayerCollision); } }
+    public DuckOfDoom.Danmaku.WispCollision WispCollision { get { return (DuckOfDoom.Danmaku.WispCollision)GetComponent(GameplayComponentsLookup.PlayerCollision); } }
     public bool hasPlayerCollision { get { return HasComponent(GameplayComponentsLookup.PlayerCollision); } }
 
     public void AddPlayerCollision(GameplayEntity newCollidedWith) {
         var index = GameplayComponentsLookup.PlayerCollision;
-        var component = CreateComponent<DuckOfDoom.Danmaku.PlayerCollision>(index);
+        var component = CreateComponent<DuckOfDoom.Danmaku.WispCollision>(index);
         component.CollidedWith = newCollidedWith;
         AddComponent(index, component);
     }
 
     public void ReplacePlayerCollision(GameplayEntity newCollidedWith) {
         var index = GameplayComponentsLookup.PlayerCollision;
-        var component = CreateComponent<DuckOfDoom.Danmaku.PlayerCollision>(index);
+        var component = CreateComponent<DuckOfDoom.Danmaku.WispCollision>(index);
         component.CollidedWith = newCollidedWith;
         ReplaceComponent(index, component);
     }
