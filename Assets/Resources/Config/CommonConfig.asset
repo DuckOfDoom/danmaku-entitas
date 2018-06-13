@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: CommonConfig
   m_EditorClassIdentifier: 
   _mouseMovementSensitivity: 1
-  _keyboardMovementSensitivity: 1
+  _keyboardMovementSensitivity: 0.1
