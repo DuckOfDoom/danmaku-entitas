@@ -14,9 +14,9 @@ namespace DuckOfDoom.Danmaku
         {
             var playerEntity = Context.CreateEntity();
             
-            playerEntity.isPlayer = true;
+            playerEntity.isWisp = true;
 //            playerEntity.AddSprite("circle");
-            playerEntity.AddPlayerMovementDirection(new Vector2(0, 0));
+            playerEntity.AddWispMovementDelta(new Vector2(0, 0));
 
             playerEntity.AddHealth(PlayerSettings.MaxHealth);
             playerEntity.AddCollidable(PlayerSettings.CollisionRadius);

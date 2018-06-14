@@ -32,7 +32,7 @@ namespace DuckOfDoom.Danmaku
                 delta = _deltaProvider[i].Update(delta);
 
             var wisp = _wispGroup.GetSingleEntity();
-            wisp.ReplaceMovementDelta(delta);
+            wisp.ReplaceWispMovementDelta(delta);
         }
 
         private interface IInputDeltaProvider

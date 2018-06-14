@@ -8,15 +8,15 @@
 //------------------------------------------------------------------------------
 public partial class GameplayContext {
 
-    public GameplayEntity playerEntity { get { return GetGroup(GameplayMatcher.Wisp).GetSingleEntity(); } }
+    public GameplayEntity wispEntity { get { return GetGroup(GameplayMatcher.Wisp).GetSingleEntity(); } }
 
-    public bool isPlayer {
-        get { return playerEntity != null; }
+    public bool isWisp {
+        get { return wispEntity != null; }
         set {
-            var entity = playerEntity;
+            var entity = wispEntity;
             if (value != (entity != null)) {
                 if (value) {
-                    CreateEntity().isPlayer = true;
+                    CreateEntity().isWisp = true;
                 } else {
                     entity.Destroy();
                 }
@@ -35,18 +35,18 @@ public partial class GameplayContext {
 //------------------------------------------------------------------------------
 public partial class GameplayEntity {
 
-    static readonly DuckOfDoom.Danmaku.WispComponent WispComponent = new DuckOfDoom.Danmaku.WispComponent();
+    static readonly DuckOfDoom.Danmaku.WispComponent wispComponent = new DuckOfDoom.Danmaku.WispComponent();
 
-    public bool isPlayer {
-        get { return HasComponent(GameplayComponentsLookup.Player); }
+    public bool isWisp {
+        get { return HasComponent(GameplayComponentsLookup.Wisp); }
         set {
-            if (value != isPlayer) {
-                var index = GameplayComponentsLookup.Player;
+            if (value != isWisp) {
+                var index = GameplayComponentsLookup.Wisp;
                 if (value) {
                     var componentPool = GetComponentPool(index);
                     var component = componentPool.Count > 0
                             ? componentPool.Pop()
-                            : WispComponent;
+                            : wispComponent;
 
                     AddComponent(index, component);
                 } else {
@@ -67,17 +67,17 @@ public partial class GameplayEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameplayMatcher {
 
-    static Entitas.IMatcher<GameplayEntity> _matcherPlayer;
+    static Entitas.IMatcher<GameplayEntity> _matcherWisp;
 
     public static Entitas.IMatcher<GameplayEntity> Wisp {
         get {
-            if (_matcherPlayer == null) {
-                var matcher = (Entitas.Matcher<GameplayEntity>)Entitas.Matcher<GameplayEntity>.AllOf(GameplayComponentsLookup.Player);
+            if (_matcherWisp == null) {
+                var matcher = (Entitas.Matcher<GameplayEntity>)Entitas.Matcher<GameplayEntity>.AllOf(GameplayComponentsLookup.Wisp);
                 matcher.componentNames = GameplayComponentsLookup.componentNames;
-                _matcherPlayer = matcher;
+                _matcherWisp = matcher;
             }
 
-            return _matcherPlayer;
+            return _matcherWisp;
         }
     }
 }

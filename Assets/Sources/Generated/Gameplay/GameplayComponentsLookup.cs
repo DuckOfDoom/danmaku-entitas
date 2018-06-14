@@ -15,15 +15,15 @@ public static class GameplayComponentsLookup {
     public const int GameObject = 4;
     public const int GameTime = 5;
     public const int Health = 6;
-    public const int PlayerCollision = 7;
-    public const int Player = 8;
-    public const int PlayerMovementDirection = 9;
-    public const int Position = 10;
-    public const int Rotation = 11;
-    public const int Spawner = 12;
-    public const int Sprite = 13;
-    public const int SpriteRenderer = 14;
-    public const int Velocity = 15;
+    public const int Position = 7;
+    public const int Rotation = 8;
+    public const int Spawner = 9;
+    public const int Sprite = 10;
+    public const int SpriteRenderer = 11;
+    public const int Velocity = 12;
+    public const int WispCollision = 13;
+    public const int Wisp = 14;
+    public const int WispMovementDelta = 15;
     public const int GameTimeSystem = 16;
 
     public const int TotalComponents = 17;
@@ -36,15 +36,15 @@ public static class GameplayComponentsLookup {
         "GameObject",
         "GameTime",
         "Health",
-        "PlayerCollision",
-        "Player",
-        "PlayerMovementDirection",
         "Position",
         "Rotation",
         "Spawner",
         "Sprite",
         "SpriteRenderer",
         "Velocity",
+        "WispCollision",
+        "Wisp",
+        "WispMovementDelta",
         "GameTimeSystem"
     };
 
@@ -56,15 +56,15 @@ public static class GameplayComponentsLookup {
         typeof(DuckOfDoom.Danmaku.GameObjectComponent),
         typeof(DuckOfDoom.Danmaku.GameTimeComponent),
         typeof(DuckOfDoom.Danmaku.Health),
-        typeof(DuckOfDoom.Danmaku.WispCollision),
-        typeof(DuckOfDoom.Danmaku.WispComponent),
-        typeof(DuckOfDoom.Danmaku.WispMovementDelta),
         typeof(DuckOfDoom.Danmaku.PositionComponent),
         typeof(DuckOfDoom.Danmaku.RotationComponent),
         typeof(DuckOfDoom.Danmaku.Spawner),
         typeof(DuckOfDoom.Danmaku.SpriteComponent),
         typeof(DuckOfDoom.Danmaku.SpriteRendererComponent),
         typeof(DuckOfDoom.Danmaku.VelocityComponent),
+        typeof(DuckOfDoom.Danmaku.WispCollision),
+        typeof(DuckOfDoom.Danmaku.WispComponent),
+        typeof(DuckOfDoom.Danmaku.WispMovementDelta),
         typeof(GameTimeSystemComponent)
     };
 }

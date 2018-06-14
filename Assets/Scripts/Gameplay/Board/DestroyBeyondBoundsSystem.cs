@@ -28,7 +28,7 @@ namespace DuckOfDoom.Danmaku
 
         protected override bool Filter(GameplayEntity entity)
         {
-            return !entity.isPlayer;
+            return !entity.isWisp;
         }
 
         protected override void Execute(List<GameplayEntity> entities)

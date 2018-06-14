@@ -9,7 +9,7 @@ namespace DuckOfDoom.Danmaku
             
         public CollisionProcessingSystem(GameplayContext context) 
         {
-            _group = context.GetGroup(GameplayMatcher.PlayerCollision);
+            _group = context.GetGroup(GameplayMatcher.WispCollision);
             _group.OnEntityAdded += OnPlayerCollision;
 
             _playerGroup = context.GetGroup(GameplayMatcher.Wisp);
@@ -17,7 +17,7 @@ namespace DuckOfDoom.Danmaku
 
         private void OnPlayerCollision(IGroup<GameplayEntity> group, GameplayEntity entity, int index, IComponent component)
         {
-            ProcessCollision(entity.WispCollision);
+            ProcessCollision(entity.wispCollision);
             entity.Destroy();
         }
 

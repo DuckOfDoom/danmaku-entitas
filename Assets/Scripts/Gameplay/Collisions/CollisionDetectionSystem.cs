@@ -36,7 +36,7 @@ namespace DuckOfDoom.Danmaku
             for (int i = 0; i < projectiles.Length; i++)
             {
                 var e = projectiles[i];
-                if (e.hasPlayerCollision) // Players shouldnt collide with himself
+                if (e.hasWispCollision) // Players shouldnt collide with himself
                     continue;
                 
                 var projectilePosition = e.position.Value;
@@ -45,7 +45,7 @@ namespace DuckOfDoom.Danmaku
                 var dist = Vector2.Distance(playerPosition, projectilePosition);
                 if (dist < playerCollisionRadius + projectileCollisionRadius)
                 {
-                    _context.CreateEntity().AddPlayerCollision(e);
+                    _context.CreateEntity().AddWispCollision(e);
                 }
             }
         }

@@ -32,7 +32,7 @@ namespace DuckOfDoom.Danmaku
                 GameObject go;
                 if (!e.hasGameObject)
                 {
-                    go = new GameObject(e.isPlayer ? "Player" : "Not Player");
+                    go = new GameObject(e.isWisp ? "Wisp" : "Not Wisp");
                     e.AddGameObject(go);
                 }
                 else

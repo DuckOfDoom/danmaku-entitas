@@ -43,7 +43,7 @@ namespace DuckOfDoom.Danmaku
 		        var e = entities[i];
                 DrawCircle(e.position.Value, e.collidable.CollisionRadius, Color.green);
 		        
-		        if (e.isPlayer)
+		        if (e.isWisp)
 			        DrawStar(e.position.Value, 0.2f, Color.cyan);
 	        }
 

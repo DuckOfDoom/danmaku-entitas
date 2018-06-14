@@ -31,7 +31,7 @@ namespace DuckOfDoom.Danmaku
         {
             entities.ForEach(e =>
             {
-                var direction = e.WispMovementDirection.Delta;
+                var direction = e.wispMovementDelta.Delta;
                 var newPosition = e.position.Value + direction; 
                 
                 if (!Config.GameplayArea.Contains(newPosition))

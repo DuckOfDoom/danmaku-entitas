@@ -8,25 +8,25 @@
 //------------------------------------------------------------------------------
 public partial class GameplayEntity {
 
-    public DuckOfDoom.Danmaku.WispCollision WispCollision { get { return (DuckOfDoom.Danmaku.WispCollision)GetComponent(GameplayComponentsLookup.PlayerCollision); } }
-    public bool hasPlayerCollision { get { return HasComponent(GameplayComponentsLookup.PlayerCollision); } }
+    public DuckOfDoom.Danmaku.WispCollision wispCollision { get { return (DuckOfDoom.Danmaku.WispCollision)GetComponent(GameplayComponentsLookup.WispCollision); } }
+    public bool hasWispCollision { get { return HasComponent(GameplayComponentsLookup.WispCollision); } }
 
-    public void AddPlayerCollision(GameplayEntity newCollidedWith) {
-        var index = GameplayComponentsLookup.PlayerCollision;
+    public void AddWispCollision(GameplayEntity newCollidedWith) {
+        var index = GameplayComponentsLookup.WispCollision;
         var component = CreateComponent<DuckOfDoom.Danmaku.WispCollision>(index);
         component.CollidedWith = newCollidedWith;
         AddComponent(index, component);
     }
 
-    public void ReplacePlayerCollision(GameplayEntity newCollidedWith) {
-        var index = GameplayComponentsLookup.PlayerCollision;
+    public void ReplaceWispCollision(GameplayEntity newCollidedWith) {
+        var index = GameplayComponentsLookup.WispCollision;
         var component = CreateComponent<DuckOfDoom.Danmaku.WispCollision>(index);
         component.CollidedWith = newCollidedWith;
         ReplaceComponent(index, component);
     }
 
-    public void RemovePlayerCollision() {
-        RemoveComponent(GameplayComponentsLookup.PlayerCollision);
+    public void RemoveWispCollision() {
+        RemoveComponent(GameplayComponentsLookup.WispCollision);
     }
 }
 
@@ -40,17 +40,17 @@ public partial class GameplayEntity {
 //------------------------------------------------------------------------------
 public sealed partial class GameplayMatcher {
 
-    static Entitas.IMatcher<GameplayEntity> _matcherPlayerCollision;
+    static Entitas.IMatcher<GameplayEntity> _matcherWispCollision;
 
-    public static Entitas.IMatcher<GameplayEntity> PlayerCollision {
+    public static Entitas.IMatcher<GameplayEntity> WispCollision {
         get {
-            if (_matcherPlayerCollision == null) {
-                var matcher = (Entitas.Matcher<GameplayEntity>)Entitas.Matcher<GameplayEntity>.AllOf(GameplayComponentsLookup.PlayerCollision);
+            if (_matcherWispCollision == null) {
+                var matcher = (Entitas.Matcher<GameplayEntity>)Entitas.Matcher<GameplayEntity>.AllOf(GameplayComponentsLookup.WispCollision);
                 matcher.componentNames = GameplayComponentsLookup.componentNames;
-                _matcherPlayerCollision = matcher;
+                _matcherWispCollision = matcher;
             }
 
-            return _matcherPlayerCollision;
+            return _matcherWispCollision;
         }
     }
 }
